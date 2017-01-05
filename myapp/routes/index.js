@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../database/db').user;
+// let cat = require('../database/db').cat;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,7 +12,7 @@ router.get('/login',(req,res) => {
 	res.render('login',{title:'login'})
 });
 
- /* ucenter */
+/* ucenter */
 router.post('/ucenter', function(req, res) {
 	var query = {name: req.body.name, password: req.body.password};
 	(function(){
@@ -26,4 +27,17 @@ router.post('/ucenter', function(req, res) {
 	  	});
 	})(query);
 });
+
+// router.get('/test',(req,res) => {
+// 	let kityy = new Cat({name:'Zildjian'});
+// 	kitty.save( err => {
+// 		if(err){
+// 			console.log(err);
+// 		}
+// 		else{
+// 			console.log('meow');
+// 		}
+// 	});
+// 	res.send('111111');
+// });
 module.exports = router;
