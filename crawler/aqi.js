@@ -2,15 +2,61 @@ const request = require('request');
 const co = require('co');
 const moment = require('moment');
 const fs = require('fs');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+let saveIntoDB = weatherData => {
+	return new Promise( (resolve,reject) => {
+		mongoose.connect('mongodb://localhost/test');
+		let db = mongoose.connection;
+
+		db.on('error', () => {
+			console.error.bind(console,'connection error:')
+		});
+		db.on('open', callback => {
+			let weatherSchema = mongoose.Schema({
+				nameen:String,
+				cityname:String,
+				city:String,
+				temp:String,
+				tempf:String,
+				WD:String,
+				wde:String,
+				WS:String,
+				wse:String,
+				SD:String,
+				time:String,
+				weather:String,
+				weathere:String,
+				weathercode:String,
+				qy:String,
+				njd:String,
+				sd:String,
+				rain:String,
+				rain24h:String,
+				aqi:String,
+				limitnumber:String,
+				aqi_pm25:String,
+				date:String,
+			});
+			let weatherModel = mongoose.model('weather',weatherSchema);
+			let beijingWeather = new weatherModel(weatherData);
+			beijingWeather.save();
+			resolve();
+			// weatherModel.find((err,weathers) => {
+			// 	resolve(weathers);
+			// });
+		});
+	});
+}
 
 let url = 'http://d1.weather.com.cn/sk_2d/101010100.html';  // pm2.5
-
 
 let getWeatherInterface = url => {
 	let options = {
 		url:url,
 		method:'get',
-		proxy:'http://proxy.cmcc:8080',  // 如果不需要代理上网，就不要设置这个字段
+		// proxy:'http://proxy.cmcc:8080',  // 如果不需要代理上网，就不要设置这个字段
 		headers:{
 			'Accept':'*/*',
 			// 'Accept-Encoding':'gzip, deflate, sdch',   // Accept-Encoding 指定客户端可以接收的文件的压缩方式，目前知道gzip，deflate这两种是不能再nodejs爬虫脚本用的。或者直接不指定这个字段（是不是就不压缩了？）就不会产生返回数据乱码的问题。
@@ -27,7 +73,6 @@ let getWeatherInterface = url => {
 
 	return new Promise( (resolve,reject) => {
 		request(options,(err,res,body) => {
-			console.log( body )
 			if(err){
 				console.log( '请求weather接口出错： ' + err );
 				reject();
@@ -50,9 +95,8 @@ let parseWeatherDate = html => {
 co(function* (){
 	let html = yield getWeatherInterface(url);
 	let weatherData = yield parseWeatherDate(html);
-	console.log( weatherData )
-	// let infoObj = yield parseInfo(html);
-	// console.log( infoObj );
+	let kk = yield saveIntoDB(weatherData);
+	console.log('done');
 }).catch(err => {
 	if(err) console.log( err );
 });

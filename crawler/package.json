@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "co": "^4.6.0",
+    "iconv-lite": "^0.4.15",
     "moment": "^2.17.1",
     "mongoose": "^4.7.6",
     "request": "^2.79.0"
