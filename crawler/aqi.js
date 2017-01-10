@@ -1,13 +1,13 @@
-const request = require('request');
-const co = require('co');
-const moment = require('moment');
-const fs = require('fs');
-const mongoose = require('mongoose');
+const request    = require('request');
+const co         = require('co');
+const moment     = require('moment');
+const fs         = require('fs');
+const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
 
 let saveIntoDB = weatherData => {
 	return new Promise( (resolve,reject) => {
-		mongoose.connect('mongodb://localhost/test');
+		mongoose.connect('mongodb://localhost/weather');
 		let db = mongoose.connection;
 
 		db.on('error', () => {
@@ -15,37 +15,34 @@ let saveIntoDB = weatherData => {
 		});
 		db.on('open', callback => {
 			let weatherSchema = mongoose.Schema({
-				nameen:String,
-				cityname:String,
-				city:String,
-				temp:String,
-				tempf:String,
-				WD:String,
-				wde:String,
-				WS:String,
-				wse:String,
-				SD:String,
-				time:String,
-				weather:String,
-				weathere:String,
-				weathercode:String,
-				qy:String,
+				nameen:String,      // 城市-英文
+				cityname:String,	// 城市-中文
+				city:String,		// 城市-编码
+				temp:String,		// 温度-摄氏度 
+				tempf:String,		// 温度-华氏度  f=fahrenheit  飞轮海
+				WD:String,			// 风向-中文   wd=wind directory
+				wde:String,			// 风向-英文
+				WS:String,			// 风速-中文   ws=wind speed
+				wse:String,			// 风速-英文
+				SD:String,			// 相对湿度
+				time:String,		// 时间
+				weather:String,		// 天气-中文
+				weathere:String,	// 天气-英文
+				weathercode:String, // 天气-代码
+				qy:String,			// 
 				njd:String,
 				sd:String,
 				rain:String,
 				rain24h:String,
-				aqi:String,
-				limitnumber:String,
-				aqi_pm25:String,
-				date:String,
+				aqi:String,			// 空气质量指数 aqi=air quantity index
+				limitnumber:String, 
+				aqi_pm25:String,	// pm2.5指数  
+				date:String,		// 日期
 			});
 			let weatherModel = mongoose.model('weather',weatherSchema);
 			let beijingWeather = new weatherModel(weatherData);
 			beijingWeather.save();
 			resolve();
-			// weatherModel.find((err,weathers) => {
-			// 	resolve(weathers);
-			// });
 		});
 	});
 }
@@ -93,9 +90,9 @@ let parseWeatherDate = html => {
 }
 
 co(function* (){
-	let html = yield getWeatherInterface(url);
+	let html        = yield getWeatherInterface(url);
 	let weatherData = yield parseWeatherDate(html);
-	let kk = yield saveIntoDB(weatherData);
+	let kk          = yield saveIntoDB(weatherData);
 	console.log('done');
 }).catch(err => {
 	if(err) console.log( err );
