@@ -3,15 +3,16 @@ const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
 const co = require('co');
 
-let saveDataIntoDB = weatherData => {
+let saveIntoDB = weatherData => {
 	return new Promise( (resolve,reject) => {
-		let db = mongoose.createConnection('mongodb://localhost/weather');
+		mongoose.connect('mongodb://localhost/weather');
+		let db = mongoose.connection;
 
 		db.on('error', err => {
 			console.log( '数据库链接错误： ' + err );
 		});
 
-		db.on('open',() => {
+		db.on('open',(callback) => {
 			console.log('in open')
 			let weatherSchema = mongoose.Schema({
 				nameen:String,      // 城市-英文
@@ -39,6 +40,8 @@ let saveDataIntoDB = weatherData => {
 				date:String,		// 日期
 			});
 			let weatherModel = mongoose.model('weather',weatherSchema);
+			console.log( weatherData )
+			console.log( typeof weatherData )
 			let beijingWeather = new weatherModel(weatherData);
 			beijingWeather.save();
 			resolve();
@@ -49,7 +52,7 @@ let saveDataIntoDB = weatherData => {
 co( function* (){
 	let weatherData =  yield pWeather.then();
 
-	yield saveDataIntoDB( weatherData );
+	yield saveIntoDB( weatherData );
 	console.log('done');
 }).catch( err => {
 	console.log(err)
