@@ -50,7 +50,9 @@ class Past24air{
 		if( typeof this.cityCode !== 'string' ){
 			throw new Error('wrong params for class Weather，string needed.');
 		}
-		return 'http://d1.weather.com.cn/aqi_all/' + this.cityCode + '.html?_=1484057468243'
+		let timeStamp = ( new Date() ).getTime();
+
+		return 'http://d1.weather.com.cn/aqi_all/' + this.cityCode + '.html?_=' + timeStamp;
 	}
 	getData(url){
 		let _this = this;
