@@ -1,4 +1,5 @@
-const pWeather   = require('./weather');
+// const pWeather   = require('./weather');
+const Weather = require('./weather');
 const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
 const co = require('co');
@@ -40,8 +41,6 @@ let saveIntoDB = weatherData => {
 				date:String,		// 日期
 			});
 			let weatherModel = mongoose.model('weather',weatherSchema);
-			console.log( weatherData )
-			console.log( typeof weatherData )
 			let beijingWeather = new weatherModel(weatherData);
 			beijingWeather.save();
 			resolve();
@@ -50,6 +49,8 @@ let saveIntoDB = weatherData => {
 }
 
 co( function* (){
+	let w1          = new Weather('101071101');
+	let pWeather    = w1.init();
 	let weatherData =  yield pWeather.then();
 
 	yield saveIntoDB( weatherData );

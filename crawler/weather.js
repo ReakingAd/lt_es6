@@ -1,33 +1,85 @@
+/*
+@param cityCode [String] or [Number]
+@usage  
+		const Weather = require('./weather');
+		let w1        = new Weather('101071101');
+		let pWeather  = w1.init();
+@return 
+		init()方法返回一个Promise对象，可继续用于外部的异步编程，例如：
+		pWeather.then( weatherInfo => {
+			console.log( weatherInfo );
+		});
+		weatherInfo 是一个 JSON ，包含了所有天气信息
+			{
+				nameen:String,      // 城市-英文
+				cityname:String,	// 城市-中文
+				city:String,		// 城市-编码
+				temp:String,		// 温度-摄氏度 
+				tempf:String,		// 温度-华氏度  f=fahrenheit  飞轮海
+				WD:String,			// 风向-中文   wd=wind directory
+				wde:String,			// 风向-英文
+				WS:String,			// 风速-中文   ws=wind speed
+				wse:String,			// 风速-英文
+				SD:String,			// 相对湿度
+				time:String,		// 时间
+				weather:String,		// 天气-中文
+				weathere:String,	// 天气-英文
+				weathercode:String, // 天气-代码
+				qy:String,			// 
+				njd:String,
+				sd:String,
+				rain:String,
+				rain24h:String,
+				aqi:String,			// 空气质量指数 aqi=air quantity index
+				limitnumber:String, 
+				aqi_pm25:String,	// pm2.5指数  
+				date:String,		// 日期
+			}
+*/
 const request = require('request');
 const co      = require('co');
-/*
 
-*/
 class Weather{
-	constructor(){
-		this.url = 'http://d1.weather.com.cn/sk_2d/101010100.html';
-		this.data;
+	constructor( cityCode ){
+		this.cityCode = cityCode;
 	}
 	init(){
 		let _this = this;
 
 		return co(function* (){
-			let interfaceDate = yield _this.getWeatherdata();
+			let url           = _this.getUrl();
+			let interfaceDate = yield _this.getWeatherdata(url);
 			let weatherData   = yield _this.parseWeatherDate(interfaceDate);
-			let data          = JSON.parse( weatherData );
 
-			return data;
-		})
-		.catch( err => {
-			if(err){
-				console.log( 'error in co catch: ' + err );
+			try{
+				JSON.parse( weatherData );
+
+				return weatherData;
 			}
-		});
+			catch(err){
+				if(err) {
+					return {
+						status:'error',
+						error:'解析数据错误,请检查参数'
+					}	
+				}
+			}
+
+		})
 	}
-	getWeatherdata(){
+	getUrl(){
+		if( typeof this.cityCode === 'number' ){
+			this.cityCode = this.cityCode.toString();
+		}
+		if( typeof this.cityCode !== 'string' ){
+			throw new Error('wrong params for class Weather，string needed.');
+		}
+		return 'http://d1.weather.com.cn/sk_2d/' + this.cityCode + '.html'
+	}
+	getWeatherdata(url){
 		return new Promise( (resolve,reject) => {
 			let options = {
-				url:this.url,
+				url:url,
 				method:'get',
 				// proxy:'http://proxy.cmcc:8080',
 				headers:{
@@ -45,7 +97,12 @@ class Weather{
 			};
 			request(options,(err,res,body) => {
 				if(err) return console.log( '访问天气数据接口输错： ' + err );
-				resolve( body )
+				if( body ){
+					resolve( body )
+				}
+				else{
+					reject('获取html为空');
+				}
 			});
 		});
 	}
@@ -53,13 +110,11 @@ class Weather{
 		return new Promise( (resolve,reject) => {
 			let rObj   = /({.*?})/g;
 			let result = rObj.exec(interfaceDate);
-
+			let weatherJSON = result[1];
+			
 			resolve(result[1]);
 		});
 	}
 }
 
-let w1         = new Weather();
-let pWeather   = w1.init()
-
-module.exports = pWeather;
+module.exports = Weather;

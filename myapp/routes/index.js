@@ -4,8 +4,9 @@ const user       = require('../database/db').user;
 
 const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
-const pWeather   = require('../../crawler/weather');
-const co  		 = require('co');
+const Weather    = require('../../crawler/weather');
+const Past24air  = require('../../crawler/past24air');
+const co         = require('co');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -31,10 +32,65 @@ router.post('/ucenter', (req, res) => {
 	  	});
 	})(query);
 });
-
+/*
+@param  city [String] 城市站号，见 城市站号.xls
+		type [String] 1 为实时查询天气，2 为查询过去24小时控制质量。缺省为1
+@return [JSON] 与type对应的气象数据
+*/
 router.get('/getweather',(req,res) => {
-	pWeather.then( kk => {
-		res.send( kk );
-	})
+	let params = req.query;
+	let errMsg = {
+		status:'error',
+		desc:''
+	}
+
+	if( params ){
+		let cityCode = params.city;
+		let type     = params.type || '1';
+
+		// 缺少 城市站号 返回错误信息
+		if( !cityCode ){
+			errMsg.desc = '缺少参数city';
+			res.send( errMsg );
+		}
+		// 有城市站号
+		else{
+			// 查询 实时天气
+			if( type === '1' ){
+				if( cityCode ){
+					let w1        = new Weather(cityCode);
+					let pWeather  = w1.init();
+
+					pWeather.then( weatherDate => {
+						res.send( weatherDate );
+					}).catch( err => {
+						console.log( err );
+					})
+				}
+			}
+			// 查询过去 24小时空气质量
+			else if ( type === '2' ){
+				if( cityCode ){
+					let p1        = new Past24air(cityCode);
+					let pPast24air  = p1.init();
+
+					pPast24air.then( airDate => {
+						res.send( airDate );
+					}).catch( err => {
+						console.log( err );
+						res.send( err );
+					})
+				}
+			}
+			else{
+				errMsg.desc = '参数type错误';
+				res.send( errMsg );
+			}
+		}
+	}
+	else{
+		errMsg.desc = '缺少参数';
+	}
+
 });
 module.exports = router;

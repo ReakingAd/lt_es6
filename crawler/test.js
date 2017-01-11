@@ -1,5 +1,9 @@
-const past24air = require('./past24air');
+const Past24air = require('./past24air');
 
-past24air.then( data => {
-	console.log( data);
+
+let p1 = new Past24air(101021200);
+let airData = p1.init();
+
+airData.then( data => {
+	console.log( data );
 });
