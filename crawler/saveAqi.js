@@ -1,3 +1,4 @@
+const conf       = require('../myapp/config/conf.json');
 const Weather    = require('./weather');
 const cityCode   = '101010100';  // 北京市
 const co         = require('co');
@@ -17,7 +18,7 @@ let getWeatherInfo = cityCode => {
 
 let saveIntoDB = weatherInfo => {
 	return new Promise( (resolve,reject) => {
-		mongoose.connect('mongodb://localhost/es6');
+		mongoose.connect('mongodb://' + conf.user + ':' + conf.pwd + '@localhost/es6');
 		let db = mongoose.connection;
 
 		db.on('error',err => {
