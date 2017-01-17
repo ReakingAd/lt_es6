@@ -71,8 +71,8 @@ router.get('/getweather',(req,res) => {
 			// 查询过去 24小时空气质量
 			else if ( type === '2' ){
 				if( cityCode ){
-					let p1        = new Past24air(cityCode);
-					let pPast24air  = p1.init();
+					let p1         = new Past24air(cityCode);
+					let pPast24air = p1.init();
 
 					pPast24air.then( airDate => {
 						res.send( airDate );

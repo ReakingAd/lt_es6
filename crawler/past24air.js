@@ -24,7 +24,6 @@ class Past24air{
 
 		return co(function* (){
 			let url           = _this.getUrl();
-			console.log( url )
 			let interfaceDate = yield _this.getData(url);
 			let airData       = yield _this.parseWeatherDate(interfaceDate);
 			
