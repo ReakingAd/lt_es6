@@ -66,7 +66,8 @@ let saveIntoDB = weatherInfo => {
 	});
 }
 
-let date = new Date('0 25 23 */1 * *');
+// 每天中午 12:00 执行爬去一次数据
+let date = new Date('0 0 12 */1 * *');
 let j = schedule.scheduleJob(date,() => {
 	co(function* (){
 		let weatherInfo = yield getWeatherInfo( cityCode );
