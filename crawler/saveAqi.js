@@ -4,7 +4,6 @@ const cityCode   = '101010100';  // 北京市
 const co         = require('co');
 const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
-// const schedule   = require('node-schedule');
 
 let getWeatherInfo = cityCode => {
 	return new Promise( (resolve,reject) => {
@@ -67,17 +66,14 @@ let saveIntoDB = weatherInfo => {
 }
 
 // 每天中午 12:00 执行爬去一次数据
-let date = new Date('0 0 12 */1 * *');
-let j = schedule.scheduleJob(date,() => {
-	co(function* (){
-		let weatherInfo = yield getWeatherInfo( cityCode );
-		let result      = yield saveIntoDB( weatherInfo );
-		console.log( result )
-	}).catch( err => {
-		if( err ){
-			console.log( 'err in co:: ' + err );
-		}
-	});
+co(function* (){
+	let weatherInfo = yield getWeatherInfo( cityCode );
+	let result      = yield saveIntoDB( weatherInfo );
+	console.log( result )
+}).catch( err => {
+	if( err ){
+		console.log( 'err in co:: ' + err );
+	}
 });
 
 process.on('uncaughtException',err => {
