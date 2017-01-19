@@ -18,20 +18,18 @@
 [3]:http://www.weatherdt.com/BaiduApiStore
 代码：
 
-`$.ajax({
-        url:'http://es6.reakingad.com/api/weather',
+// jsonp
+$.ajax({
+    url:'http://es6.reakingad.com/api/weather',
 	type : 'get',
 	cache : false,
-	data:'city=101010100&type=1',
+	data:'city=101010100',
 	dataType : 'jsonp',
 	success : function(data) {
 		console.log( data )
 	}
-});`
-	1
-	
-
-    1111console.log(1111)
+});
+   
     
       
  
