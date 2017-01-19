@@ -14,7 +14,7 @@ function getWeather( {city:cityCode = '101010100',type = '1'} = {cityCode:'10101
 	// 缺少 城市站号 返回错误信息
 	if( !cityCode ){
 		return new Promise( (resolve,reject) => {
-			errMsg.desc = '缺少参数city';
+			errMsg.desc = '缺 少 参 数 c i t y ';
 			resolve(errMsg)
 		});
 	}
