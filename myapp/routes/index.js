@@ -15,6 +15,7 @@ router.get('/login',(req,res) => {
 	res.render('login',{title:'login'})
 });
 
+
 /* ucenter */
 router.post('/ucenter', (req, res) => {
 	var query = {name: req.body.name, password: req.body.password};
