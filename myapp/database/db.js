@@ -1,10 +1,18 @@
-// const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/es6'); // 链接数据库
-// const Schema = mongoose.Schema; // 创建模型
+const conf     = require('../config/conf.json');
+const mongoose = require('mongoose');
 
-// let userScheMa = new Schema({
-// 	name:String,
-// 	password:String
-// }); // 定义了一个新的模型，但是此模型还未知和users集合有关联
+let options = {
+	server:{poolSize:5}
+};
+mongoose.connect('mongodb://' + conf.mongodb_es6_user + ':' + conf.mongodb_es6_pwd + '@localhost/es6',options);
+let db = mongoose.connection;
 
-// exports.user = mongoose.model('users',userScheMa); // 与users集合并联
+db.on('error', err => {
+	if(err) console.log( '数据库链接异常：： ' + err );
+});
+
+db.on('open',() => {
+	console.log('connected');
+});
+
+module.exports = db;

@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-const api = require('./routes/api');
+const api = require('./routes/api');  // api 路由的微型中间件
 
 var app = express();
 

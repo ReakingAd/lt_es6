@@ -1,8 +1,9 @@
-const express    = require('express');
-const router     = express.Router();
-const getWeather = require('./__api/getweather');
-const lt_utils   = require('../public/lt_utils');
-
+const express           = require('express');
+const router            = express.Router();
+const getWeather        = require('./__api/getweather');
+const lt_utils          = require('../public/lt_utils');
+const getWeatherHistory = require('./__api/getweatherhistory');
+const db 			    = require('../database/db');
 /*
 @param  		{String} callback  JSONP的回调函数
 @param			{String} city  城市站号，见 城市站号.xls
@@ -68,6 +69,24 @@ router.get('/weather',(req,res) => {
 				res.send( errMsg );
 			}
 		}
+});
+
+/*
+@param 			{String} city  城市站号，见 城市站号.xls
+@param   		
+@desc 			返回指定城市的历史天气信息。目前仅支持北京。
+*/
+router.get('/weatherhistory',(req,res) => {
+	let params = req.query;
+	let {city} = params;
+
+	getWeatherHistory.find({city:city},(err,docs) => {
+		if(err) return console.log( err );
+
+		let bj_weatherJSON = JSON.stringify(docs);
+
+		res.send( bj_weatherJSON );
+	});
 });
 
 module.exports = router;
