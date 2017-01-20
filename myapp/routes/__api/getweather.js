@@ -6,8 +6,8 @@
 				3.如果传入的obj参数不能正确的解构出cityCode则使用默认值 101010100 ,同理type默认值 1
 @return  	Promise    其then()方法得到的结果是个object,保存着天气信息  
 */
-const Weather    = require('../../crawler/weather');
-const Past24air  = require('../../crawler/past24air');
+const Weather    = require('../../../crawler/weather');
+const Past24air  = require('../../../crawler/past24air');
 
 function getWeather( {city:cityCode = '101010100',type = '1'} = {cityCode:'1010100',type:'1'} ){
 	let errMsg = {};

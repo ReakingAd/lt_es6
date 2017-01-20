@@ -1,4 +1,5 @@
 {
-	"user":"naaaaaaaaaaaaaame",
-	"pwd":"pwwwwwwwwwwwwwwwwd"
+	"mongodb_es6_user":"naaaaaaaaaaaaaame",
+	"mongodb_es6_pwd":"pwwwwwwwwwwwwwwwwd",
+	"proxy":"http://proxy.cmcc:8080"
 }

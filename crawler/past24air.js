@@ -12,6 +12,7 @@
 		airInfo 是一个 JSON ，包含了过去24小时所有空气信息
 			
 */
+const conf    = require('../myapp/config/conf.json');
 const request = require('request');
 const co      = require('co');
 
@@ -60,7 +61,7 @@ class Past24air{
 			let options = {
 				url:url,
 				method:'get',
-				// proxy:'http://proxy.cmcc:8080',
+				proxy:conf.proxy,
 				headers:{
 					'Accept':'*/*',
 					'Accept-Language':'zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4',

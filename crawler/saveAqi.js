@@ -18,7 +18,7 @@ let getWeatherInfo = cityCode => {
 
 let saveIntoDB = weatherInfo => {
 	return new Promise( (resolve,reject) => {
-		mongoose.connect('mongodb://' + conf.user + ':' + conf.pwd + '@localhost/es6');
+		mongoose.connect('mongodb://' + conf.mongodb_es6_user + ':' + conf.mongodb_es6_pwd + '@localhost/es6');
 		let db = mongoose.connection;
 
 		db.on('error',err => {

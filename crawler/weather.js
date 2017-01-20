@@ -36,6 +36,7 @@
 				date:String,		// 日期
 			}
 */
+const conf    = require('../myapp/config/conf.json');
 const request = require('request');
 const co      = require('co');
 
@@ -81,7 +82,7 @@ class Weather{
 			let options = {
 				url:url,
 				method:'get',
-				// proxy:'http://proxy.cmcc:8080',
+				proxy:conf.proxy,
 				headers:{
 					'Accept':'*/*',
 					// 'Accept-Encoding':'gzip, deflate, sdch',   // Accept-Encoding 指定客户端可以接收的文件的压缩方式，目前知道gzip，deflate这两种是不能再nodejs爬虫脚本用的。或者直接不指定这个字段（是不是就不压缩了？）就不会产生返回数据乱码的问题。
