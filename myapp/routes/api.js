@@ -82,10 +82,19 @@ router.get('/getweatherhistory',(req,res) => {
 	let {city='101010100',r:range} = params;
 
 	let [startDate,endDate] = (range => {
-		let rangeArr  = range.split('to');
-		let startDate = parseInt( moment(rangeArr[0]).valueOf() );
-		let endDate   = parseInt( moment(rangeArr[1]).valueOf() );
+		let startDate,endDate;
 
+		if(typeof range === 'undefined'){
+			startDate = moment().subtract(7,'days').valueOf();
+			endDate   = moment().valueOf();
+		}
+		else{
+			let rangeArr  = range.split('to');
+			startDate = parseInt( moment(rangeArr[0]).valueOf() );
+			endDate   = parseInt( moment(rangeArr[1]).valueOf() );
+		}
+		console.log(startDate)
+		console.log(endDate)
 		return [startDate,endDate];
 	})(range);
 	
