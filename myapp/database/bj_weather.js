@@ -24,6 +24,7 @@ let bj_weatherSchema = mongoose.Schema({
 	limitnumber:String, 
 	aqi_pm25:String,	// pm2.5指数  
 	date:String,		// 日期
+	createAt:Number		// 创建日期
 });
 let bj_weatherModel = mongoose.model('bj_weather',bj_weatherSchema);
 

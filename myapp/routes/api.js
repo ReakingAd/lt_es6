@@ -4,6 +4,7 @@ const getWeather        = require('./__api/getweather');
 const lt_utils          = require('../public/lt_utils');
 const getWeatherHistory = require('./__api/getweatherhistory');
 const db 			    = require('../database/db');
+const moment 		    = require('moment');
 /*
 @param  		{String} callback  JSONP的回调函数
 @param			{String} city  城市站号，见 城市站号.xls
@@ -11,7 +12,7 @@ const db 			    = require('../database/db');
 @desc 			接收get请求，根据不同参数，返回指定的天气信息
 @res.send() 	{JSON} 与type对应的气象数据
 */
-router.get('/weather',(req,res) => {
+router.get('/getweather',(req,res) => {
 	let params = req.query;
 		let errMsg = {
 			status:'error',
@@ -76,15 +77,29 @@ router.get('/weather',(req,res) => {
 @param   		
 @desc 			返回指定城市的历史天气信息。目前仅支持北京。
 */
-router.get('/weatherhistory',(req,res) => {
+router.get('/getweatherhistory',(req,res) => {
 	let params = req.query;
-	let {city} = params;
+	let {city='101010100',r:range} = params;
 
-	getWeatherHistory.find({city:city},(err,docs) => {
+	let [startDate,endDate] = (range => {
+		let rangeArr  = range.split('to');
+		let startDate = parseInt( moment(rangeArr[0]).valueOf() );
+		let endDate   = parseInt( moment(rangeArr[1]).valueOf() );
+
+		return [startDate,endDate];
+	})(range);
+	
+
+	getWeatherHistory.find({city:city})
+	.where('createAt')
+	.gt(startDate)
+	.lt(endDate)
+	.exec( (err,docs) => {
 		if(err) return console.log( err );
 
 		let bj_weatherJSON = JSON.stringify(docs);
-
+		console.log( startDate )
+		console.log( endDate )
 		res.send( bj_weatherJSON );
 	});
 });

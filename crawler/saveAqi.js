@@ -1,9 +1,12 @@
-const conf       = require('../myapp/config/conf.json');
-const Weather    = require('./weather');
-const cityCode   = '101010100';  // 北京市
-const co         = require('co');
-const mongoose   = require('mongoose');
-mongoose.Promise = global.Promise;
+/*
+@desc	利用Linux的crontab，每天中午12:00执行一次这个脚本。保存北京当天12:00的天气数据进mongodb
+*/
+const conf            = require('../myapp/config/conf.json');
+const Weather         = require('./weather');
+const cityCode        = '101010100';  // 北京市
+const co              = require('co');
+const db              = require('../myapp/database/db');
+const bj_weatherModel = require('../myapp/database/bj_weather');
 
 let getWeatherInfo = cityCode => {
 	return new Promise( (resolve,reject) => {
@@ -16,59 +19,34 @@ let getWeatherInfo = cityCode => {
 	});
 }
 
-let saveIntoDB = weatherInfo => {
+/*
+@param  {JSON} weatherinfo
+@return {obj} weatherinfoObj
+@desc 	将爬取的结果增加一个字段createAt,类型为Number
+*/
+let addFieldCreateAt = weatherInfo => {
+	let weatherInfoObj = JSON.parse( weatherInfo );
+		
+	weatherInfoObj.createAt = Date.now();
+	console.log( weatherInfoObj.createAt )
+	return weatherInfoObj;
+}
+
+let saveIntoDB = weatherInfoObj => {
 	return new Promise( (resolve,reject) => {
-		mongoose.connect('mongodb://' + conf.mongodb_es6_user + ':' + conf.mongodb_es6_pwd + '@localhost/es6');
-		let db = mongoose.connection;
-
-		db.on('error',err => {
-			if(err) console.log( '链接DB出错： ' + err );
-		});
-
-		db.on('open', () => {
-			let weatherInfoObj = JSON.parse( weatherInfo );
-			let weatherSchema = mongoose.Schema({
-				nameen:String,      // 城市-英文
-				cityname:String,	// 城市-中文
-				city:String,		// 城市-编码
-				temp:String,		// 温度-摄氏度 
-				tempf:String,		// 温度-华氏度  f=fahrenheit  飞轮海
-				WD:String,			// 风向-中文   wd=wind directory
-				wde:String,			// 风向-英文
-				WS:String,			// 风速-中文   ws=wind speed
-				wse:String,			// 风速-英文
-				SD:String,			// 相对湿度
-				time:String,		// 时间
-				weather:String,		// 天气-中文
-				weathere:String,	// 天气-英文
-				weathercode:String, // 天气-代码
-				qy:String,			// 
-				njd:String,
-				sd:String,
-				rain:String,
-				rain24h:String,
-				aqi:String,			// 空气质量指数 aqi=air quantity index
-				limitnumber:String, 
-				aqi_pm25:String,	// pm2.5指数  
-				date:String,		// 日期
-			});
-			let weatherModel = mongoose.model('bj_weather',weatherSchema);
-			let weatherEntity = new weatherModel( weatherInfoObj );
-
-			weatherEntity.save(err => {
-				if( err ){
-					console.log( '存储db出错： ' + err );
-				}
-				resolve('save into DB successfully.');
-			});
+		let bj_weatherEntity = new bj_weatherModel( weatherInfoObj );
+		
+		bj_weatherEntity.save( err => {
+			if(err) return console.log(err);
+			resolve('save into DB successfully.');
 		});
 	});
 }
 
-// 每天中午 12:00 执行爬去一次数据
 co(function* (){
 	let weatherInfo = yield getWeatherInfo( cityCode );
-	let result      = yield saveIntoDB( weatherInfo );
+	let weatherInfoObj     = addFieldCreateAt(weatherInfo)
+	let result      = yield saveIntoDB( weatherInfoObj );
 	console.log( result )
 }).catch( err => {
 	if( err ){
