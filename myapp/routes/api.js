@@ -14,62 +14,62 @@ const moment 		    = require('moment');
 */
 router.get('/getweather',(req,res) => {
 	let params = req.query;
-		let errMsg = {
-			status:'error',
-			desc:''
+	let errMsg = {
+		status:'error',
+		desc:''
+	}
+	let _callbackFnName = params.callback;
+
+	// 如果是 JSONP,即带有 callback参数
+	if( typeof _callbackFnName !== 'undefined' ){
+		let isLegalFuncName = lt_utils.isLegalFuncName( _callbackFnName );
+
+		// 如果jsonp的回调函数名字非法，则以JONSP的形式返回提醒信息
+		if( !isLegalFuncName ){
+			res.send( '\'jsonp 回调函数名非法，请修改。\'' );
 		}
-		let _callbackFnName = params.callback;
+		// 有 city 参数
+		else if( typeof params.city !== 'undefined' ){
+			let pWeather = getWeather(params);
 
-		// 如果是 JSONP,即带有 callback参数
-		if( typeof _callbackFnName !== 'undefined' ){
-			let isLegalFuncName = lt_utils.isLegalFuncName( _callbackFnName );
+			pWeather.then( weatherInfo => {
+				let jsonpResult = _callbackFnName + '(' + weatherInfo + ')';
 
-			// 如果jsonp的回调函数名字非法，则以JONSP的形式返回提醒信息
-			if( !isLegalFuncName ){
-				res.send( '\'jsonp 回调函数名非法，请修改。\'' );
-			}
-			// 有 city 参数
-			else if( typeof params.city !== 'undefined' ){
-				let pWeather = getWeather(params);
-
-				pWeather.then( weatherInfo => {
-					let jsonpResult = _callbackFnName + '(' + weatherInfo + ')';
-
-					res.send( jsonpResult )
-				}).catch( err => {
-					if(err) console.log( 'err:: ' + err);
-				})
-			}
-			// 无 city 参数
-			else{
-				errMsg.desc = '缺少参数';
-				errMsg = JSON.stringify( errMsg );
-				let jsonpResult = _callbackFnName + '(' + errMsg + ')';
-
-				res.send( jsonpResult );
-			}
+				res.send( jsonpResult )
+			}).catch( err => {
+				if(err) console.log( 'err:: ' + err);
+			})
 		}
-		// 如果不是 JSONP
+		// 无 city 参数
 		else{
-			// 有 city 参数
-			if( typeof params.city !== 'undefined' ){
-				let pWeather = getWeather(params);
+			errMsg.desc = '缺少参数';
+			errMsg = JSON.stringify( errMsg );
+			let jsonpResult = _callbackFnName + '(' + errMsg + ')';
 
-				pWeather.then( weatherInfo => {
-					// res.set('Access-Control-Allow-Origin','*');
-					res.send( weatherInfo )
-				}).catch( err => {
-					if(err) console.log( 'err:: ' + err);
-				});
-			}
-			// 无 city 参数
-			else{
-				errMsg.desc = '缺少参数';
-				errMsg = JSON.stringify( errMsg );
-
-				res.send( errMsg );
-			}
+			res.send( jsonpResult );
 		}
+	}
+	// 如果不是 JSONP
+	else{
+		// 有 city 参数
+		if( typeof params.city !== 'undefined' ){
+			let pWeather = getWeather(params);
+
+			pWeather.then( weatherInfo => {
+				// res.set('Access-Control-Allow-Origin','*');
+				res.send( weatherInfo )
+			}).catch( err => {
+				if(err) console.log( 'err:: ' + err);
+			});
+		}
+		// 无 city 参数
+		else{
+			errMsg.desc = '缺少参数';
+			errMsg = JSON.stringify( errMsg );
+
+			res.send( errMsg );
+		}
+	}
 });
 
 /*
@@ -79,8 +79,8 @@ router.get('/getweather',(req,res) => {
 */
 router.get('/getweatherhistory',(req,res) => {
 	let params = req.query;
-	let {city='101010100',r:range} = params;
-
+	let {city='101010100',r:range,callback} = params;
+	console.log( callback )
 	let [startDate,endDate] = (range => {
 		let startDate,endDate;
 
@@ -93,8 +93,6 @@ router.get('/getweatherhistory',(req,res) => {
 			startDate = parseInt( moment(rangeArr[0]).valueOf() );
 			endDate   = parseInt( moment(rangeArr[1]).valueOf() );
 		}
-		console.log(startDate)
-		console.log(endDate)
 		return [startDate,endDate];
 	})(range);
 	
@@ -107,10 +105,18 @@ router.get('/getweatherhistory',(req,res) => {
 		if(err) return console.log( err );
 
 		let bj_weatherJSON = JSON.stringify(docs);
-		console.log( startDate )
-		console.log( endDate )
-		res.send( bj_weatherJSON );
+		// 如果是jsonp,返回 jsonp 回调函数
+		if( callback ){
+			let jsonpData = callback + '(' + bj_weatherJSON + ')';
+
+			res.send( jsonpData );
+		}
+		// 如果不是jsonp，直接返回数据
+		else{
+			res.send( bj_weatherJSON );
+		}
 	});
 });
 
 module.exports = router;
+
