@@ -80,18 +80,17 @@ router.get('/getweather',(req,res) => {
 router.get('/getweatherhistory',(req,res) => {
 	let params = req.query;
 	let {city='101010100',r:range,callback} = params;
-	console.log( callback )
 	let [startDate,endDate] = (range => {
 		let startDate,endDate;
-
+		// 由于爬虫是每天正午12:00记录数据，所以，结束日期要延后一天，才能正确取出range范围内的数据
 		if(typeof range === 'undefined'){
 			startDate = moment().subtract(7,'days').valueOf();
-			endDate   = moment().valueOf();
+			endDate   = moment().add(1,'days').valueOf();
 		}
 		else{
 			let rangeArr  = range.split('to');
 			startDate = parseInt( moment(rangeArr[0]).valueOf() );
-			endDate   = parseInt( moment(rangeArr[1]).valueOf() );
+			endDate   = parseInt( moment(rangeArr[1]).add(1,'days').valueOf() );
 		}
 		return [startDate,endDate];
 	})(range);
