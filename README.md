@@ -17,7 +17,7 @@
 **示例**
 	
 	// 获取北京的实时天气数据
-	http://www.weather.com.cn/api/getweather?city=101010100&type=1
+	http://es6.reakingad.com/api/getweather?city=101010100&type=1
 
 **参数说明**
 
@@ -29,7 +29,7 @@
 
 get方式：
  
-	http://www.weather.com.cn/api/getweather?city=城市代码&type=1
+	http://es6.reakingad.com/api/getweather?city=城市代码&type=1
 	
 php代码：
 		
