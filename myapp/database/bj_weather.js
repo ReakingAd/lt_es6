@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('./db.js');
 
 let bj_weatherSchema = mongoose.Schema({
 	nameen:String,      // 城市-英文
@@ -28,4 +28,4 @@ let bj_weatherSchema = mongoose.Schema({
 });
 let bj_weatherModel = mongoose.model('bj_weather',bj_weatherSchema);
 
-module.exports = bj_weatherModel;
+module.exports = [mongoose,bj_weatherModel];
