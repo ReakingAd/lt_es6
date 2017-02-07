@@ -3,7 +3,6 @@ const router            = express.Router();
 const getWeather        = require('./__api/getweather');
 const lt_utils          = require('../public/lt_utils');
 const getWeatherHistory = require('./__api/getweatherhistory');
-const db 			    = require('../database/db');
 const moment 		    = require('moment');
 /*
 @param  		{String} callback  JSONP的回调函数

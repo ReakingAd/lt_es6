@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../../database/db.js');
 
 let weatherhistorySchema = mongoose.Schema({
 	nameen:String,      // 城市-英文
