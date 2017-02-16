@@ -116,5 +116,12 @@ router.get('/getweatherhistory',(req,res) => {
 	});
 });
 
+router.post('/test',(req,res) => {
+	let queryString = req.query;
+	console.log('in post');
+	// console.log( res.req.body )
+	console.log(req.body)
+	res.send( req.body );
+})
 module.exports = router;
 
