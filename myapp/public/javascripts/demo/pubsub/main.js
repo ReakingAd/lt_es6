@@ -6,6 +6,7 @@
     var $ = root.jQuery;
 
     root.main = {
+        imagePath:'/images/demo/pubsub/',
         selections:{
             fabric:{
                 front:{
@@ -107,24 +108,23 @@
         },
         // 修改面料
         mFabric:function(selections){
-            console.log( selections.fabric.front.value );
-            var _src = 'all_new/XZ_BL_' + selections.fabric.front.value + '_Z.png';
-            var _src_back = 'all_new/XZ_BL_' + selections.fabric.back.value + '_F.png';
+            var _src = root.main.imagePath + 'all_new/XZ_BL_' + selections.fabric.front.value + '_Z.png';
+            var _src_back = root.main.imagePath + 'all_new/XZ_BL_' + selections.fabric.back.value + '_F.png';
 
             $('.fabric img').attr('src',_src);
             $('.fabric-b img').attr('src',_src_back);
         },
         // 修改袖口
         mCuffs:function(selections){
-            var _src      = 'all_new/XZ_ZS_XT_Z_ZMXT_CX_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
-            var _src_back = 'all_new/XZ_ZS_XT_F_CX_' + selections.cuffs.back.value + '_' + selections.fabric.back.type + '_' + selections.fabric.back.value + '_F_.png'
+            var _src      = root.main.imagePath + 'all_new/XZ_ZS_XT_Z_ZMXT_CX_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
+            var _src_back = root.main.imagePath + 'all_new/XZ_ZS_XT_F_CX_' + selections.cuffs.back.value + '_' + selections.fabric.back.type + '_' + selections.fabric.back.value + '_F_.png'
 
             $('.cuffs img').attr('src',_src);
             $('.cuffs-b img').attr('src',_src_back);
         },
         // 修改领子。背面领子被包含在大身里面了？？
         mCollar:function(selections){
-            var _src = 'all_new/XZ_ZS_LZ_' + selections.collar.front.value + '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
+            var _src = root.main.imagePath + 'all_new/XZ_ZS_LZ_' + selections.collar.front.value + '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
 
             $('.collar img').attr('src',_src);
         },
@@ -134,17 +134,17 @@
             var _src = '';
 
             if( _value === 'empty' ){
-                _src = 'all_new/empty.png';
+                _src = root.main.imagePath + 'all_new/empty.png';
             }
             else{
-                _src = 'all_new/XZ_ZS_KD_Z_' + selections.pocket.front.value + '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
+                _src = root.main.imagePath + 'all_new/XZ_ZS_KD_Z_' + selections.pocket.front.value + '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
             }
 
             $('.pocket img').attr('src',_src);
         },
         // 修改门襟
         mMj:function(selections){
-            var _src = 'all_new/XZ_ZS_MJ_' + selections.mj.front.value+ '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
+            var _src = root.main.imagePath + 'all_new/XZ_ZS_MJ_' + selections.mj.front.value+ '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png';
 
             $('.mj img').attr('src',_src);
         },
@@ -154,21 +154,21 @@
             var _src = '';
 
             // 如果门禁是暗门襟，则遮罩层也采用mj层的图，以盖住button。否则mj遮罩层用空图片
-            _mjValue === 'ZAMJ' ? _src = 'all_new/XZ_ZS_MJ_' + selections.mj.front.value+ '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png'
-                    : _src = 'all_new/empty.png';  
+            _mjValue === 'ZAMJ' ? _src = root.main.imagePath + 'all_new/XZ_ZS_MJ_' + selections.mj.front.value+ '_' + selections.fabric.front.type + '_' + selections.fabric.front.value + '_Z_.png'
+                    : _src = root.main.imagePath + 'all_new/empty.png';  
             $('.mj_cover_button img').attr('src',_src);
         },
         // 修改扣子
         mButton:function(selections){
-            var _src = 'all_new/XZ_MJ_XDw_WLK_KZ_' + selections.button.front.value + '_' + selections.button.front.color + '_Z_.png';
-            var _src_back = 'all_new/XZ_XT_KZ_FS_' + selections.button.back.value + '_' + selections.button.back.color + '_F_.png';
+            var _src = root.main.imagePath + 'all_new/XZ_MJ_XDw_WLK_KZ_' + selections.button.front.value + '_' + selections.button.front.color + '_Z_.png';
+            var _src_back = root.main.imagePath + 'all_new/XZ_XT_KZ_FS_' + selections.button.back.value + '_' + selections.button.back.color + '_F_.png';
 
             $('.button img').attr('src',_src);
             $('.button-b img').attr('src',_src_back);
         },
         // 修改过肩
         mGj:function(selections){
-            var _src = 'all_new/XZ_ZS_GJ_F_ZCGJ_' + selections.fabric.back.type + '_' + selections.fabric.back.value + '_F_.png';
+            var _src = root.main.imagePath + 'all_new/XZ_ZS_GJ_F_ZCGJ_' + selections.fabric.back.type + '_' + selections.fabric.back.value + '_F_.png';
 
             $('.gj-b img').attr('src',_src);
         },
@@ -179,10 +179,10 @@
 
             // SSJGJ使用带布料颜色轮廓的后背图
             if( _value === 'SSJGJ' ){
-                _src = 'all_new/XZ_ZS_GJ_F_' + _value + '_' + selections.fabric.back.type + '_' + selections.fabric.back.value + '_F_.png';
+                _src = root.main.imagePath + 'all_new/XZ_ZS_GJ_F_' + _value + '_' + selections.fabric.back.type + '_' + selections.fabric.back.value + '_F_.png';
             }
             else{
-                _src = 'all_new/XZ_BM_' + _value + '_F.png';
+                _src = root.main.imagePath + 'all_new/XZ_BM_' + _value + '_F.png';
             }
             $('.hb-b img').attr('src',_src);
         },
@@ -199,6 +199,27 @@
             Pubsub.listen('update',this.mHb);
         },
         // 切换nav
+        // bindChangeNav:function(){
+        //     var _this = this;
+
+        //     $('.nav-list-inner-wrapper').on('click','ul li',function(){
+        //         var $this = $(this);
+        //         $this.siblings().removeClass('nav-sel');
+        //         $this.addClass('nav-sel');
+
+        //         var _category = $(this).data('category');
+        //         if( _category === 'hb' || _category === 'cuffs' ){
+        //             _this.rotateShirt('back');
+        //         }
+        //         else{
+        //             _this.rotateShirt('front');
+        //         }
+        //         var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
+
+        //         _content.siblings('ul').addClass('lt_hide');
+        //         _content.removeClass('lt_hide');
+        //     });
+        // },
         bindChangeNav:function(){
             var _this = this;
 
@@ -208,12 +229,25 @@
                 $this.addClass('nav-sel');
 
                 var _category = $(this).data('category');
-                if( _category === 'hb' || _category === 'cuffs' ){
-                    _this.rotateShirt('back');
-                }
-                else{
-                    _this.rotateShirt('front');
-                }
+
+                $.ajax({
+                    url:'/demo/pubsub/getContent',
+                    method:'get',
+                    data:'tplName=' + _category,
+                    success:function(data){
+                        console.log( data );
+                        var $container = $('.content-list-inner-wrapper');
+                        $container.find('ul').remove();
+                        // $('.content-list-inner-wrapper ul').remove();
+                        $container.append( data );
+                    }
+                });
+                // if( _category === 'hb' || _category === 'cuffs' ){
+                //     _this.rotateShirt('back');
+                // }
+                // else{
+                //     _this.rotateShirt('front');
+                // }
                 var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
 
                 _content.siblings('ul').addClass('lt_hide');

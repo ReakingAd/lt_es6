@@ -1,13 +1,14 @@
 const express    = require('express');
 const router     = express.Router();
 // const user       = require('../database/db').user;
+const ejs = require('ejs');
 
 const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+	res.render('index', { title: 'Express' });
 });
 
 router.get('/login',(req,res) => {
