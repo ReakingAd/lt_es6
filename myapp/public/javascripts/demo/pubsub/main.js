@@ -199,27 +199,6 @@
             Pubsub.listen('update',this.mHb);
         },
         // 切换nav
-        // bindChangeNav:function(){
-        //     var _this = this;
-
-        //     $('.nav-list-inner-wrapper').on('click','ul li',function(){
-        //         var $this = $(this);
-        //         $this.siblings().removeClass('nav-sel');
-        //         $this.addClass('nav-sel');
-
-        //         var _category = $(this).data('category');
-        //         if( _category === 'hb' || _category === 'cuffs' ){
-        //             _this.rotateShirt('back');
-        //         }
-        //         else{
-        //             _this.rotateShirt('front');
-        //         }
-        //         var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
-
-        //         _content.siblings('ul').addClass('lt_hide');
-        //         _content.removeClass('lt_hide');
-        //     });
-        // },
         bindChangeNav:function(){
             var _this = this;
 
@@ -230,30 +209,62 @@
 
                 var _category = $(this).data('category');
 
-                $.ajax({
-                    url:'/demo/pubsub/getContent',
-                    method:'get',
-                    cache:true,
-                    data:'tplName=' + _category,
-                    success:function(data){
-                        if( data.status === 'success' ){
-                            var $container = $('.content-list-inner-wrapper');
+                // $.ajax({
+                //     url:'/demo/pubsub/getContent',
+                //     method:'get',
+                //     data:'tplName=' + _category,
+                //     success:function(data){
+                //         if( data.status === 'success' ){
+                //             var $container = $('.content-list-inner-wrapper');
 
-                            $container.find('ul').remove();
-                            $container.append( data.msg );
-                            // 对于后背和袖口，自动转换为背面效果图显示
-                            if( _category === 'hb' || _category === 'cuffs' ){
-                                _this.rotateShirt('back');
+                //             $container.find('ul').remove();
+                //             $container.append( data.msg );
+                //             // 对于后背和袖口，自动转换为背面效果图显示
+                //             if( _category === 'hb' || _category === 'cuffs' ){
+                //                 _this.rotateShirt('back');
+                //             }
+                //             else{
+                //                 _this.rotateShirt('front');
+                //             }
+                //         }
+                //         else{
+                //             console.log( data.msg );
+                //         }
+                //     }
+                // });
+                var xhr = new XMLHttpRequest();
+                xhr.open( 'get','/demo/pubsub/getContent?tplName=' + _category );
+                // xhr.setRequestHeader('If-Modified-Since','0');
+                xhr.setRequestHeader('text','Litao');
+                xhr.onreadystatechange = function(){
+                    if( xhr.readyState === 4 ){
+                        if( xhr.status === 200 ){
+                            var data = JSON.parse( xhr.responseText );
+                            // console.log( data );
+                            // console.log( data.status );
+                            if( data.status === 'success' ){
+                                var $container = $('.content-list-inner-wrapper');
+
+                                $container.find('ul').remove();
+                                $container.append( data.msg );
+                                // 对于后背和袖口，自动转换为背面效果图显示
+                                if( _category === 'hb' || _category === 'cuffs' ){
+                                    _this.rotateShirt('back');
+                                }
+                                else{
+                                    _this.rotateShirt('front');
+                                }
                             }
                             else{
-                                _this.rotateShirt('front');
+                                console.log( data.msg );
                             }
                         }
                         else{
-                            console.log( data.msg );
+                            console.log( xhr.responseText );
                         }
                     }
-                });
+                }
+                xhr.send(null);
                 var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
 
                 _content.siblings('ul').addClass('lt_hide');

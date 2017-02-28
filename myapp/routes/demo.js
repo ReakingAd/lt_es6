@@ -15,13 +15,13 @@ router.get('/pubsub/index', (req, res, next) => {
 */ 
 router.get('/pubsub/getContent',(req,res) => {
 
-	let resData = {};
-	let { tplName } = req.query;
+	let resData     = {};
+	let { tplName } =  req.query;
 
 	if( !tplName ){
 		resData = {
 			status:'err',
-			msg:'缺少模板名字',
+			msg:'缺少模板名字参数',
 		}
 	}
 	else{
@@ -53,6 +53,7 @@ router.get('/pubsub/getContent',(req,res) => {
 			}
 		}
 	}
+
 	res.send( resData );
 });
 
