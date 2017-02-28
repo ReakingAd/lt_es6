@@ -233,21 +233,27 @@
                 $.ajax({
                     url:'/demo/pubsub/getContent',
                     method:'get',
+                    cache:true,
                     data:'tplName=' + _category,
                     success:function(data){
-                        console.log( data );
-                        var $container = $('.content-list-inner-wrapper');
-                        $container.find('ul').remove();
-                        // $('.content-list-inner-wrapper ul').remove();
-                        $container.append( data );
+                        if( data.status === 'success' ){
+                            var $container = $('.content-list-inner-wrapper');
+
+                            $container.find('ul').remove();
+                            $container.append( data.msg );
+                            // 对于后背和袖口，自动转换为背面效果图显示
+                            if( _category === 'hb' || _category === 'cuffs' ){
+                                _this.rotateShirt('back');
+                            }
+                            else{
+                                _this.rotateShirt('front');
+                            }
+                        }
+                        else{
+                            console.log( data.msg );
+                        }
                     }
                 });
-                // if( _category === 'hb' || _category === 'cuffs' ){
-                //     _this.rotateShirt('back');
-                // }
-                // else{
-                //     _this.rotateShirt('front');
-                // }
                 var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
 
                 _content.siblings('ul').addClass('lt_hide');
