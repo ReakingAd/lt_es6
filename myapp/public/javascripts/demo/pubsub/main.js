@@ -8,19 +8,27 @@
     root.main = {
         imagePath:'/images/demo/pubsub/',
         selections:{
-            fabric:{
+            hb:{
                 front:{
-                    type:'CS',
-                    value:'CS5'
+                    value:'SZ'
                 },
                 back:{
-                    type:'CS',
-                    value:'CS5'
+                    value:'SZ'
                 }
             },
-            collar:{
+            button:{
                 front:{
-                    value:'XFLG'
+                    color:'CS5',
+                    value:'YK'
+                },
+                back:{
+                    color:'CS5',
+                    value:'YK'
+                }
+            },
+            buttonhode_thread:{
+                front:{
+                    value:'XZ_MJ_XDw_WLK_KY_SS_Z'
                 },
                 back:{
                     value:''
@@ -34,12 +42,32 @@
                     value:''
                 }
             },
-            hb:{
+            pocket:{
                 front:{
-                    value:'SZ'
+                    value:'empty'
                 },
                 back:{
-                    value:'SZ'
+                    value:''
+                }
+            },
+            collar_surface:{
+                front:{},
+                back:{}
+            },
+            collar:{
+                front:{
+                    value:'XFLG'
+                },
+                back:{
+                    value:''
+                }
+            },
+            sleeve:{
+                front:{
+                    value:'XZ_XZ_CX_Z'
+                },
+                back:{
+                    value:'XZ_XZ_CX_F'
                 }
             },
             cuffs:{
@@ -50,30 +78,37 @@
                     value:'YJ1Y'
                 }
             },
-            pocket:{
+            ds:{
                 front:{
-                    value:'empty'
+                    value:'DS_ZM'
                 },
                 back:{
-                    value:''
+                    value:'DS_BM'
                 }
             },
-            button:{
+            fabric:{
                 front:{
-                    color:'CS5',
-                    value:'YK'
+                    type:'CS',
+                    value:'CS5'
                 },
                 back:{
-                    color:'CS5',
-                    value:'YK'
+                    type:'CS',
+                    value:'CS5'
                 }
             }
         },
         init:function(){
+            this.initShirt();
             this.bindClick();
             this.subscribeEvent();
             this.bindChangeNav();
             this.bindBtnRotate();
+        },
+        initShirt:function(){
+            $.get('/demo/pubsub/getSelections').done(function(data){
+                console.log(data);
+                Pubsub.trigger('update',data);
+            });
         },
         bindClick:function(){
             var _this = this;
@@ -186,6 +221,30 @@
             }
             $('.hb-b img').attr('src',_src);
         },
+        // 修改大身
+        mDs:function(selections){
+            var _value      = selections.ds.front.value;
+            var _value_back = selections.ds.back.value;
+            var _src        = '';
+            var _src_back   = '';
+
+            _src      = root.main.imagePath + 'all_new/' + _value + '.png';
+            _src_back = root.main.imagePath + 'all_new/' + _value_back + '.png';
+            $('.ds img').attr('src',_src);
+            $('.ds-b img').attr('src',_src_back);
+        },
+        // 修改袖子
+        mSleeve:function(selections){
+            var _value      = selections.sleeve.front.value;
+            var _value_back = selections.sleeve.back.value;
+            var _src        = '';
+            var _src_back   = ''; 
+
+            _src = root.main.imagePath + 'all_new/' + _value + '.png';
+            _src_back = root.main.imagePath + 'all_new/' + _value_back + '.png';
+            $('.sleeve img').attr('src',_src);
+            $('.sleeve-b img').attr('src',_src_back);
+        },
         // 订阅
         subscribeEvent:function(){
             Pubsub.listen('update',this.mFabric);
@@ -197,6 +256,8 @@
             Pubsub.listen('update',this.mButton);
             Pubsub.listen('update',this.mGj);
             Pubsub.listen('update',this.mHb);
+            Pubsub.listen('update',this.mDs);
+            Pubsub.listen('update',this.mSleeve);
         },
         // 切换nav
         bindChangeNav:function(){
@@ -209,66 +270,34 @@
 
                 var _category = $(this).data('category');
 
-                // $.ajax({
-                //     url:'/demo/pubsub/getContent',
-                //     method:'get',
-                //     data:'tplName=' + _category,
-                //     success:function(data){
-                //         if( data.status === 'success' ){
-                //             var $container = $('.content-list-inner-wrapper');
+                $.ajax({
+                    url:'/demo/pubsub/getContent',
+                    method:'get',
+                    data:'tplName=' + _category,
+                    success:function(data){
+                        if( data.status === 'success' ){
+                            var $container = $('.content-list-inner-wrapper');
 
-                //             $container.find('ul').remove();
-                //             $container.append( data.msg );
-                //             // 对于后背和袖口，自动转换为背面效果图显示
-                //             if( _category === 'hb' || _category === 'cuffs' ){
-                //                 _this.rotateShirt('back');
-                //             }
-                //             else{
-                //                 _this.rotateShirt('front');
-                //             }
-                //         }
-                //         else{
-                //             console.log( data.msg );
-                //         }
-                //     }
-                // });
-                var xhr = new XMLHttpRequest();
-                xhr.open( 'get','/demo/pubsub/getContent?tplName=' + _category );
-                // xhr.setRequestHeader('If-Modified-Since','0');
-                xhr.setRequestHeader('text','Litao');
-                xhr.onreadystatechange = function(){
-                    if( xhr.readyState === 4 ){
-                        if( xhr.status === 200 ){
-                            var data = JSON.parse( xhr.responseText );
-                            // console.log( data );
-                            // console.log( data.status );
-                            if( data.status === 'success' ){
-                                var $container = $('.content-list-inner-wrapper');
-
-                                $container.find('ul').remove();
-                                $container.append( data.msg );
-                                // 对于后背和袖口，自动转换为背面效果图显示
-                                if( _category === 'hb' || _category === 'cuffs' ){
-                                    _this.rotateShirt('back');
-                                }
-                                else{
-                                    _this.rotateShirt('front');
-                                }
+                            $container.find('ul').remove();
+                            $container.append( data.msg );
+                            // 对于后背和袖口，自动转换为背面效果图显示
+                            if( _category === 'hb' || _category === 'cuffs' ){
+                                _this.rotateShirt('back');
                             }
                             else{
-                                console.log( data.msg );
+                                _this.rotateShirt('front');
                             }
                         }
                         else{
-                            console.log( xhr.responseText );
+                            console.log( data.msg );
                         }
-                    }
-                }
-                xhr.send(null);
-                var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
+                        var _content = $('.content-list-inner-wrapper').find('ul').filter('[data-category=' + _category + ']');
 
-                _content.siblings('ul').addClass('lt_hide');
-                _content.removeClass('lt_hide');
+                        _content.siblings('ul').addClass('lt_hide');
+                        _content.removeClass('lt_hide');
+                    }
+                });
+                
             });
         },
         // 整体翻转衬衫拼图。'back'显示背面 'front'显示正面 ''或无参数显示相反方向
