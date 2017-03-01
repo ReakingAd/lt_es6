@@ -98,15 +98,14 @@
             }
         },
         init:function(){
-            this.initShirt();
             this.bindClick();
             this.subscribeEvent();
             this.bindChangeNav();
             this.bindBtnRotate();
+            this.initShirt();
         },
         initShirt:function(){
             $.get('/demo/pubsub/getSelections').done(function(data){
-                console.log(data);
                 Pubsub.trigger('update',data);
             });
         },

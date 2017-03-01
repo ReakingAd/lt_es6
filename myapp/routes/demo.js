@@ -74,7 +74,7 @@ router.get('/pubsub/getContent',(req,res) => {
 			}
 		}
 	}
-	res.setHeader('Cache-Control','public,max-age:111111');
+
 	res.send( resData );
 });
 
