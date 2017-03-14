@@ -6,7 +6,7 @@ const path           = require('path');
 const pGetSelections = require('../database/shirts');
 
 router.get('/pubsub/index', (req, res, next) => {
-	res.render('demo/pubsub/index');
+	res.render('demo/pubsub/index.ejs');
 });
 
 
