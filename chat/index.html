@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<section id="main-section">
+	<ul id="container"></ul>
+</section>
+<section id="input-section">
+	<textarea name="input-area" id="input-area" cols="30" rows="5"></textarea>
+	<input class="btn-submit" type="button" value="发表" />
+</section>
+<style>
+#main-section{
+	width:80%;
+	border:1px solid #ccc;
+	height:500px;
+	margin:0 auto;
+	overflow: auto;
+}
+#input-area{
+	display: block;
+	margin:20px auto;
+	width: 80%;
+}
+.btn-submit{
+	display: block;
+	margin:0 auto;
+}
+.green{
+	color:#0f3;
+}
+ul li{
+	display: block;
+	margin:5px 0;
+}
+</style>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io('http://10.2.48.243:8080/');
+var myIP = '';
+
+function write(data){
+	var user       = data.user;
+	var msg        = data.msg;
+	var _container = document.getElementById('container');
+	if( myIP === user ){
+		user = '你';
+	}
+	var content    = '<li>' + user + ' 说： ' + msg + '</li>';
+	_container.innerHTML += content;
+}
+function writeNotice(data){
+	var user       = data.user;
+	var msg        = data.msg;
+	var _container = document.getElementById('container');
+	var content    = '';
+
+	if( myIP === user ){
+		content    = '<li class="green">' + user + ',你好！' + msg + '</li>';
+	}
+	else{
+		content    = '<li class="green">欢迎 ' + user + ' 进入聊天室</li>';
+	}
+	_container.innerHTML += content;
+}
+// 接收欢迎通知
+socket.on('welcome',function(data){
+	console.log('in welcome')
+	myIP = data.user;
+	console.log('ip===' + myIP)
+	writeNotice(data);
+	console.log( myIP );
+});
+// 接收系统公告
+socket.on('notice',function(data){
+	console.log(' in notice');
+	console.log( data )
+	writeNotice( data );
+});
+// 提交发言
+var _btnSubmit = document.getElementsByClassName('btn-submit')[0];
+_btnSubmit.addEventListener('click',function(){
+	var _input = document.getElementById('input-area').value;
+	document.getElementById('input-area').value = '';
+	console.log( _input );
+	socket.emit('submit',_input);
+});
+
+// 接收发言
+socket.on('publish',function(data){
+	console.log('in publish')
+	console.log('myIP:' + myIP)
+	write(data);
+});
+
+
+
+</script>
+</body>
+</html>
