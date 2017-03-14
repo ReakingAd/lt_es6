@@ -20,12 +20,12 @@ function handler (req, res) {
 function getIP(socket){
 	let ip = socket.conn.remoteAddress;
 	console.log('in getIp:' + ip)
-	// if( ip.indexOf('ff') ){
-	// 	ip = ip.substr(7);
-	// }
-	// else{
-	// 	ip = '127.0.0.1';
-	// }
+	if( ip.indexOf('ff') ){
+		ip = ip.substr(7);
+	}
+	else{
+		ip = '127.0.0.1';
+	}
 	return ip;
 }
 function packageMsg(socket,str){
