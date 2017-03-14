@@ -2,7 +2,7 @@ var app = require('http').createServer(handler)
 var io = require('socket.io')(app);
 var fs = require('fs');
 
-app.listen(8080);
+app.listen(8081);
 
 function handler (req, res) {
 	fs.readFile(__dirname + '/index.html',
@@ -12,25 +12,24 @@ function handler (req, res) {
 		  return res.end('Error loading index.html');
 		}
 
-		res.writeHead(200);
+		res.writeHead(200,{'Content-Type':'text/html'});
 		res.end(data);
 	});
 }
 
 function getIP(socket){
 	let ip = socket.conn.remoteAddress;
-	
-	if( ip.indexOf('ff') ){
-		ip = ip.substr(7);
-	}
-	else{
-		ip = '127.0.0.1';
-	}
+	console.log('in getIp:' + ip)
+	// if( ip.indexOf('ff') ){
+	// 	ip = ip.substr(7);
+	// }
+	// else{
+	// 	ip = '127.0.0.1';
+	// }
 	return ip;
 }
 function packageMsg(socket,str){
 	let ip = getIP(socket);
-	console.log( ip );
 	let data = {
 		user:ip,
 		msg:str

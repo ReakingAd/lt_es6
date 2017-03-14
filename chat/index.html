@@ -39,7 +39,8 @@ ul li{
 </style>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-var socket = io('http://10.2.48.243:8080/');
+// var socket = io('http://10.2.48.243:8081/');
+var socket = io('http://chat.reakingad.com');
 var myIP = '';
 
 function write(data){
@@ -101,3 +102,4 @@ socket.on('publish',function(data){
 </script>
 </body>
 </html>
+
