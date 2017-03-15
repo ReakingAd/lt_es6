@@ -19,7 +19,6 @@ function handler (req, res) {
 
 function getIP(socket){
 	let ip = socket.conn.remoteAddress;
-	console.log('in getIp:' + ip)
 	if( ip.indexOf('ff') !== -1 ){
 		ip = ip.substr(7);
 	}

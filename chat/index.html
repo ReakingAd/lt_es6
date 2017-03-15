@@ -68,16 +68,11 @@ function writeNotice(data){
 }
 // 接收欢迎通知
 socket.on('welcome',function(data){
-	console.log('in welcome')
 	myIP = data.user;
-	console.log('ip===' + myIP)
 	writeNotice(data);
-	console.log( myIP );
 });
 // 接收系统公告
 socket.on('notice',function(data){
-	console.log(' in notice');
-	console.log( data )
 	writeNotice( data );
 });
 // 提交发言
@@ -85,14 +80,11 @@ var _btnSubmit = document.getElementsByClassName('btn-submit')[0];
 _btnSubmit.addEventListener('click',function(){
 	var _input = document.getElementById('input-area').value;
 	document.getElementById('input-area').value = '';
-	console.log( _input );
 	socket.emit('submit',_input);
 });
 
 // 接收发言
 socket.on('publish',function(data){
-	console.log('in publish')
-	console.log('myIP:' + myIP)
 	write(data);
 });
 
