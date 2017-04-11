@@ -1,0 +1,50 @@
+.main-container{
+    text-align: center;
+    font-family:"Microsoft YaHei";
+}
+.grid-container{
+    overflow:hidden;
+    width:40%;
+    height:40vw;
+    min-width:200px;
+    min-height:200px;
+    max-width:300px;
+    max-height:300px;
+    margin:0 auto;
+}
+.grid{
+    border:1px solid #ccc;
+    width:33.333%;
+    height:33.333%;
+    line-height: 33.333%;
+    float:left;
+    box-sizing:border-box;
+}
+.grid span{
+    vertical-align: middle;
+}
+.grid:after{
+    content:'';
+    height:100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+.clearfloat{
+    clear:both;
+}
+.btn-container{
+    padding-top:20px;
+}
+.btn-container button{
+    background-color:#fff;
+    border:1px solid #ccc;
+    padding: 5px 10px;
+    font-family:"Microsoft YaHei";
+    outline:none;
+}
+.btn-container button:hover{
+    background-color:#ddd
+}
+.btn-container button:active{
+    background-color:#ccc
+}

@@ -9,7 +9,6 @@ router.get('/pubsub/index', (req, res, next) => {
 	res.render('demo/pubsub/index.ejs');
 });
 
-
 /*
 @desc 返回衬衫的所有选项的初始值
 */
@@ -78,4 +77,7 @@ router.get('/pubsub/getContent',(req,res) => {
 	res.send( resData );
 });
 
+router.get('/react/jing',(req,res) => {
+	res.render('demo/jing/jing.ejs');
+})
 module.exports = router;
