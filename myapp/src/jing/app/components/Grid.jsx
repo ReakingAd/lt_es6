@@ -12,7 +12,7 @@ class Grid extends Component{
         let gridStatus = this.props.gridStatus;
 
         if( gridStatus === 'blank' ){
-            this.props.handlePlayerStep(this.props.coordArr);
+            this.props.stepClient(this.props.coordArr);
         }
     }
     render(){

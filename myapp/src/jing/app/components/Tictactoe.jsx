@@ -3,12 +3,18 @@ import Grid from './Grid.jsx';
 import Utils from './Utils.js';
 import Chessbtns from './Chessbtns.jsx';
 import Pubsub from './Pubsub.js';
+// import Socketio from 'socket.io';
 
 class Tictactoe extends Component{
     constructor(props){
         super(props);
-        this.init();
-        this.handlePlayerStep = this.handlePlayerStep.bind(this);
+        // socketio begin
+        this.socket = io('http://localhost:8082');
+        this.initSocket = this.initSocket.bind(this);
+        this.initSocket();
+        // socketio end
+        // this.init();
+        this.stepClient = this.stepClient.bind(this);
         this.botAction        = this.botAction.bind(this);
         this.judgeResult      = this.judgeResult.bind(this);
         this.restartChess     = this.restartChess.bind(this);
@@ -17,23 +23,35 @@ class Tictactoe extends Component{
             winner:'',
             waitingFor:'x'
         }
+        this.id = '';
+        this.role = '';
     }
-    // Pubsub订阅事件
-    init(){
-        Pubsub.listen('xDone',() => {
-            this.judgeResult();
-        });
-        Pubsub.listen('judgeDone',() => {
-            if( !this.state.winner ){
-                if( this.state.waitingFor === 'o' ){
-                    this.botAction();
-                }
-            }
-        });
-        Pubsub.listen('oDone',() => {
-            this.judgeResult();
+    initSocket(){
+        this.socket.on('dispatchRole',msg => {
+            this.id = msg.id;
+            this.role = msg.role;
+        })
+        this.socket.on('stepServer',msg => {
+            console.log( msg )
+            this._updateChess(msg)
         })
     }
+    // Pubsub订阅事件
+    // init(){
+    //     Pubsub.listen('xDone',() => {
+    //         this.judgeResult();
+    //     });
+    //     Pubsub.listen('judgeDone',() => {
+    //         if( !this.state.winner ){
+    //             if( this.state.waitingFor === 'o' ){
+    //                 // this.botAction();
+    //             }
+    //         }
+    //     });
+    //     Pubsub.listen('oDone',() => {
+    //         this.judgeResult();
+    //     })
+    // }
     // 重新开始游戏
     restartChess(){
         this.setState({
@@ -43,10 +61,18 @@ class Tictactoe extends Component{
         })
     }
     // 玩家x下棋后，回调
-    handlePlayerStep(clickedKey){
-        let _num = Utils.calcNum(clickedKey);
+    stepClient(clickedKey){
+        this.socket.emit('stepClient',{
+            player:this.role,
+            axis:clickedKey
+        })
+    }
+    // 更新玩家x的棋子
+    _updateChess(step){
+        let {player,axis} = step;
+        let _num = Utils.calcNum(axis);
 
-        this.state.gridStatus[ _num - 1 ] = 'x'
+        this.state.gridStatus[ _num - 1 ] = player;
         this.setState({
             gridStatus:this.state.gridStatus,
             waitingFor:'o'
@@ -148,19 +174,20 @@ class Tictactoe extends Component{
         }
         Pubsub.trigger('judgeDone');
     }
-    
     render(){
         let grids = this.state.gridStatus.map( (item,index) => {
-            return <Grid key={index.toString()} gridNum={index.toString()} handlePlayerStep={this.handlePlayerStep} gridStatus={item}
+            return <Grid key={index.toString()} gridNum={index.toString()} stepClient={this.stepClient} gridStatus={item}
                     coordArr={Utils.calcCoord(index + 1)} winner={this.state.winner} />
         });
 
         return (
             <div className="tictactoe-container">
-                <div className="grid-container">
-                    {grids}
+                <div className="game-container">
+                    <div className="grid-container">
+                        {grids}
+                    </div>
+                    <Chessbtns winner={this.state.winner} restartChess={this.restartChess}/>
                 </div>
-                <Chessbtns winner={this.state.winner} restartChess={this.restartChess}/>
             </div>
         )
     }

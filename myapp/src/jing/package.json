@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack --watch",
-    "dev":"webpack-dev-server "
+    "dev": "webpack-dev-server "
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "babel-preset-react": "^6.23.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-socket": "^1.0.0-beta.0",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   }

@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "26e1f6500bd35b763eee"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ecc2af9db281b3a75b03"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -10971,7 +10971,7 @@ var Grid = function (_Component) {
             var gridStatus = this.props.gridStatus;
 
             if (gridStatus === 'blank') {
-                this.props.handlePlayerStep(this.props.coordArr);
+                this.props.stepClient(this.props.coordArr);
             }
         }
     }, {
@@ -11191,16 +11191,23 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// import Socketio from 'socket.io';
+
 var Tictactoe = function (_Component) {
     _inherits(Tictactoe, _Component);
 
     function Tictactoe(props) {
         _classCallCheck(this, Tictactoe);
 
+        // socketio begin
         var _this = _possibleConstructorReturn(this, (Tictactoe.__proto__ || Object.getPrototypeOf(Tictactoe)).call(this, props));
 
-        _this.init();
-        _this.handlePlayerStep = _this.handlePlayerStep.bind(_this);
+        _this.socket = io('http://localhost:8082');
+        _this.initSocket = _this.initSocket.bind(_this);
+        _this.initSocket();
+        // socketio end
+        // this.init();
+        _this.stepClient = _this.stepClient.bind(_this);
         _this.botAction = _this.botAction.bind(_this);
         _this.judgeResult = _this.judgeResult.bind(_this);
         _this.restartChess = _this.restartChess.bind(_this);
@@ -11209,30 +11216,41 @@ var Tictactoe = function (_Component) {
             winner: '',
             waitingFor: 'x'
         };
+        _this.id = '';
+        _this.role = '';
         return _this;
     }
-    // Pubsub订阅事件
-
 
     _createClass(Tictactoe, [{
-        key: 'init',
-        value: function init() {
+        key: 'initSocket',
+        value: function initSocket() {
             var _this2 = this;
 
-            _Pubsub2.default.listen('xDone', function () {
-                _this2.judgeResult();
+            this.socket.on('dispatchRole', function (msg) {
+                _this2.id = msg.id;
+                _this2.role = msg.role;
             });
-            _Pubsub2.default.listen('judgeDone', function () {
-                if (!_this2.state.winner) {
-                    if (_this2.state.waitingFor === 'o') {
-                        _this2.botAction();
-                    }
-                }
-            });
-            _Pubsub2.default.listen('oDone', function () {
-                _this2.judgeResult();
+            this.socket.on('stepServer', function (msg) {
+                console.log(msg);
+                _this2._updateChess(msg);
             });
         }
+        // Pubsub订阅事件
+        // init(){
+        //     Pubsub.listen('xDone',() => {
+        //         this.judgeResult();
+        //     });
+        //     Pubsub.listen('judgeDone',() => {
+        //         if( !this.state.winner ){
+        //             if( this.state.waitingFor === 'o' ){
+        //                 // this.botAction();
+        //             }
+        //         }
+        //     });
+        //     Pubsub.listen('oDone',() => {
+        //         this.judgeResult();
+        //     })
+        // }
         // 重新开始游戏
 
     }, {
@@ -11247,11 +11265,24 @@ var Tictactoe = function (_Component) {
         // 玩家x下棋后，回调
 
     }, {
-        key: 'handlePlayerStep',
-        value: function handlePlayerStep(clickedKey) {
-            var _num = _Utils2.default.calcNum(clickedKey);
+        key: 'stepClient',
+        value: function stepClient(clickedKey) {
+            this.socket.emit('stepClient', {
+                player: this.role,
+                axis: clickedKey
+            });
+        }
+        // 更新玩家x的棋子
 
-            this.state.gridStatus[_num - 1] = 'x';
+    }, {
+        key: '_updateChess',
+        value: function _updateChess(step) {
+            var player = step.player,
+                axis = step.axis;
+
+            var _num = _Utils2.default.calcNum(axis);
+
+            this.state.gridStatus[_num - 1] = player;
             this.setState({
                 gridStatus: this.state.gridStatus,
                 waitingFor: 'o'
@@ -11390,7 +11421,7 @@ var Tictactoe = function (_Component) {
             var _this3 = this;
 
             var grids = this.state.gridStatus.map(function (item, index) {
-                return _react2.default.createElement(_Grid2.default, { key: index.toString(), gridNum: index.toString(), handlePlayerStep: _this3.handlePlayerStep, gridStatus: item,
+                return _react2.default.createElement(_Grid2.default, { key: index.toString(), gridNum: index.toString(), stepClient: _this3.stepClient, gridStatus: item,
                     coordArr: _Utils2.default.calcCoord(index + 1), winner: _this3.state.winner });
             });
 
@@ -11399,10 +11430,14 @@ var Tictactoe = function (_Component) {
                 { className: 'tictactoe-container' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'grid-container' },
-                    grids
-                ),
-                _react2.default.createElement(_Chessbtns2.default, { winner: this.state.winner, restartChess: this.restartChess })
+                    { className: 'game-container' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'grid-container' },
+                        grids
+                    ),
+                    _react2.default.createElement(_Chessbtns2.default, { winner: this.state.winner, restartChess: this.restartChess })
+                )
             );
         }
     }]);
