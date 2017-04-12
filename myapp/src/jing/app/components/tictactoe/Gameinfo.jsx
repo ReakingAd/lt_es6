@@ -1,4 +1,4 @@
-import React,{ Component} from 'react';
+import React,{ Component } from 'react';
 
 class Gameinfo extends Component{
     constructor(props){

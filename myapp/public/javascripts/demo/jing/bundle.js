@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1901eb43842ec18b4bd1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "60103a34be4836551e55"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -11342,8 +11342,9 @@ var Tictactoe = function (_Component) {
     _createClass(Tictactoe, [{
         key: 'getRole',
         value: function getRole() {
-            var queryString = window.location.search.split('=');
-            var role = queryString[1];
+            var queryString = window.location.search;
+            var paramsMap = _Utils2.default.formatQuerystring(queryString);
+            var role = paramsMap.get('player');
 
             return role;
         }
@@ -11548,6 +11549,9 @@ exports.default = Tictactoe;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 /**
  * 根据给定的格子坐标，返回格子的编号。例如[2,3]是第6个格子
  * @param {Array} coordArr 
@@ -11607,7 +11611,25 @@ function arrCheck(arr, num) {
     return count;
 }
 
-exports.default = { calcNum: calcNum, calcCoord: calcCoord, arrCheck: arrCheck };
+function formatQuerystring(querystring) {
+    var result = new Map();
+    querystring = querystring.replace(/^\?/, '');
+    var queryArr = querystring.split('&');
+
+    queryArr.forEach(function (item) {
+        var _arr = item.split('=');
+
+        var _arr2 = _slicedToArray(_arr, 2),
+            key = _arr2[0],
+            value = _arr2[1];
+
+        result.set(key, value);
+    });
+
+    return result;
+}
+
+exports.default = { calcNum: calcNum, calcCoord: calcCoord, arrCheck: arrCheck, formatQuerystring: formatQuerystring };
 
 /***/ }),
 /* 92 */

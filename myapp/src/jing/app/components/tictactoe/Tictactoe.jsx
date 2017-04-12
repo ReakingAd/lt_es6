@@ -23,8 +23,9 @@ class Tictactoe extends Component{
         this.initSocket();
     }
     getRole(){
-        let queryString = window.location.search.split('=');
-        let role        = queryString[ 1 ];
+        let queryString = window.location.search;
+        let paramsMap   = Utils.formatQuerystring( queryString );
+        let role        = paramsMap.get('player');
 
         return role;
     }

@@ -57,4 +57,19 @@ function arrCheck(arr,num){
     return count;
 }
 
-export default {calcNum,calcCoord,arrCheck};
+function formatQuerystring(querystring){
+    let result      = new Map();
+    querystring     = querystring.replace(/^\?/,'');
+    let queryArr    = querystring.split('&');
+
+    queryArr.forEach(item => {
+        let _arr        = item.split('=');
+        let [key,value] = _arr;
+
+        result.set(key,value);
+    });
+
+    return result;
+}
+
+export default {calcNum,calcCoord,arrCheck,formatQuerystring};
