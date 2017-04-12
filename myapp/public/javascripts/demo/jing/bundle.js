@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ecc2af9db281b3a75b03"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "427aa6b9105d79e8c79e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1190,7 +1190,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 var _prodInvariant = __webpack_require__(3);
 
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var ReactDOMComponentFlags = __webpack_require__(59);
 
 var invariant = __webpack_require__(1);
@@ -2399,6 +2399,16 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+module.exports = __webpack_require__(20);
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2609,16 +2619,6 @@ var DOMProperty = {
 
 module.exports = DOMProperty;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(20);
-
 
 /***/ }),
 /* 15 */
@@ -8288,7 +8288,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 
 
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInstrumentation = __webpack_require__(8);
 
@@ -9028,7 +9028,7 @@ module.exports = ReactInputSelection;
 var _prodInvariant = __webpack_require__(3);
 
 var DOMLazyTree = __webpack_require__(18);
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var React = __webpack_require__(20);
 var ReactBrowserEventEmitter = __webpack_require__(27);
 var ReactCurrentOwner = __webpack_require__(11);
@@ -10625,7 +10625,7 @@ module.exports = getIteratorFn;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(14);
+var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10633,11 +10633,11 @@ var _reactDom = __webpack_require__(108);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Header = __webpack_require__(86);
+var _Header = __webpack_require__(84);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _clock = __webpack_require__(91);
+var _clock = __webpack_require__(86);
 
 var _clock2 = _interopRequireDefault(_clock);
 
@@ -10645,7 +10645,7 @@ var _Calculator = __webpack_require__(83);
 
 var _Calculator2 = _interopRequireDefault(_Calculator);
 
-var _Tictactoe = __webpack_require__(88);
+var _Tictactoe = __webpack_require__(90);
 
 var _Tictactoe2 = _interopRequireDefault(_Tictactoe);
 
@@ -10767,11 +10767,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(14);
+var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _boilingVerdict = __webpack_require__(90);
+var _boilingVerdict = __webpack_require__(85);
 
 var _boilingVerdict2 = _interopRequireDefault(_boilingVerdict);
 
@@ -10854,163 +10854,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(14);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Chessbtns = function (_Component) {
-    _inherits(Chessbtns, _Component);
-
-    function Chessbtns(props) {
-        _classCallCheck(this, Chessbtns);
-
-        var _this = _possibleConstructorReturn(this, (Chessbtns.__proto__ || Object.getPrototypeOf(Chessbtns)).call(this, props));
-
-        _this.handleClick = _this.handleClick.bind(_this);
-        return _this;
-    }
-
-    _createClass(Chessbtns, [{
-        key: 'handleClick',
-        value: function handleClick() {
-            this.props.restartChess();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var ResultDOM = '';
-
-            if (this.props.winner === 'x') {
-                ResultDOM = _react2.default.createElement(
-                    'p',
-                    null,
-                    '\u606D\u559C\u4F60\u83B7\u80DC\uFF01'
-                );
-            } else if (this.props.winner === 'o') {
-                ResultDOM = _react2.default.createElement(
-                    'p',
-                    null,
-                    '\u5F88\u9057\u61BE\u4F60\u8F93\u4E86\u3002'
-                );
-            } else if (this.props.winner === 'draw') {
-                ResultDOM = _react2.default.createElement(
-                    'p',
-                    null,
-                    '\u5E73\u5C40'
-                );
-            }
-            return _react2.default.createElement(
-                'div',
-                { className: 'btn-container clearfloat' },
-                ResultDOM,
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.handleClick },
-                    '\u91CD\u65B0\u5F00\u59CB'
-                )
-            );
-        }
-    }]);
-
-    return Chessbtns;
-}(_react.Component);
-
-exports.default = Chessbtns;
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(14);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Grid = function (_Component) {
-    _inherits(Grid, _Component);
-
-    function Grid(props) {
-        _classCallCheck(this, Grid);
-
-        var _this = _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).call(this, props));
-
-        _this.handleClick = _this.handleClick.bind(_this);
-        return _this;
-    }
-
-    _createClass(Grid, [{
-        key: 'handleClick',
-        value: function handleClick() {
-            if (this.props.winner) {
-                return;
-            }
-            var gridStatus = this.props.gridStatus;
-
-            if (gridStatus === 'blank') {
-                this.props.stepClient(this.props.coordArr);
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var chessMap = {
-                blank: '',
-                x: 'x',
-                o: 'o'
-            };
-            var chess = chessMap[this.props.gridStatus];
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'grid', onClick: this.handleClick },
-                chess
-            );
-        }
-    }]);
-
-    return Grid;
-}(_react.Component);
-
-exports.default = Grid;
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(14);
+var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -11071,87 +10915,7 @@ var Header = function (_Component) {
 exports.default = Header;
 
 /***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-/*
-@auther Litao
-@desc   观察者模式的简单实现。可以订阅、发布、取消订阅
-@usage
-    <script src="pubsub.js"></script>
-    <script>
-        var myCallback = function(data){
-            console.log( data );
-        }
-        Pubsub.listen('event1',myCallback); // 订阅
-        Pubsub.trigger('event1','sdfsdfsdf'); // 发布
-        Pubsub.remove('event1',myCallback);  // 取消订阅
-        Pubsub.trigger('event1','sdfsdfsdf');
-    </script>
-@ 问题1： 如果需要remove()取消订阅，则在listen()订阅的时候就必须穿入具名函数。因为remove()函数内部是判断函数相等的方式来查找的。
-@ 问题2： 如果不同人使用，为同一个事件绑定2个回调，不幸函数名重复，则在remove()的时候，会把两个回调都取消订阅。
-@ 问题3： 不支持记忆功能。要求先订阅，再发布才行。所以要注意函数调用的顺序。但是一般ajax这种网络请求，一般都很慢，所有有可能顺序不对pubsub也能正常发挥作用。。
-@ 问题4： 有once的需求。即发布一次之后，订阅的用户执行完一次回调后，直接取消订阅。例如，用pubsub控制页面各部件载入的顺序。
-*/
-var Pubsub = function () {
-    var eContainer = {};
-    var listen = function listen(event, cb) {
-        if (!eContainer[event]) {
-            eContainer[event] = [];
-        }
-        if (typeof cb !== 'function') {
-            throw Error('param error,\'function\' needed');
-        }
-        eContainer[event].push(cb);
-    };
-    var trigger = function trigger(event, data) {
-        if (!eContainer[event]) {
-            console.warn('no event registered named ' + event);
-            return false;
-        } else if (eContainer[event].length === 0) {
-            console.warn('no callback registered for event ' + event);
-        }
-        eContainer[event].forEach(function (item, index) {
-            item(data);
-        });
-    };
-    /*
-    @要求remove()在使用时，cb必须是一个具名函数，且在listen()的时候，穿入的也是同一个具名函数。
-    */
-    var remove = function remove(event, cb) {
-        var cbs = eContainer[event];
-
-        if (!cbs) {
-            return false;
-        }
-        // 如果未传入回调cb，则删除当前穿入的event事件。
-        if (!cb) {
-            delete eContainer[event];
-        } else {
-            for (var i = 0; i < cbs.length; i++) {
-                if (cb === cbs[i]) {
-                    cbs.splice(i, 1);
-                }
-            }
-        }
-    };
-    return {
-        listen: listen,
-        trigger: trigger,
-        remove: remove
-    };
-}();
-
-exports.default = Pubsub;
-
-/***/ }),
-/* 88 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11163,375 +10927,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(14);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Grid = __webpack_require__(85);
-
-var _Grid2 = _interopRequireDefault(_Grid);
-
-var _Utils = __webpack_require__(89);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _Chessbtns = __webpack_require__(84);
-
-var _Chessbtns2 = _interopRequireDefault(_Chessbtns);
-
-var _Pubsub = __webpack_require__(87);
-
-var _Pubsub2 = _interopRequireDefault(_Pubsub);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import Socketio from 'socket.io';
-
-var Tictactoe = function (_Component) {
-    _inherits(Tictactoe, _Component);
-
-    function Tictactoe(props) {
-        _classCallCheck(this, Tictactoe);
-
-        // socketio begin
-        var _this = _possibleConstructorReturn(this, (Tictactoe.__proto__ || Object.getPrototypeOf(Tictactoe)).call(this, props));
-
-        _this.socket = io('http://localhost:8082');
-        _this.initSocket = _this.initSocket.bind(_this);
-        _this.initSocket();
-        // socketio end
-        // this.init();
-        _this.stepClient = _this.stepClient.bind(_this);
-        _this.botAction = _this.botAction.bind(_this);
-        _this.judgeResult = _this.judgeResult.bind(_this);
-        _this.restartChess = _this.restartChess.bind(_this);
-        _this.state = {
-            gridStatus: ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'],
-            winner: '',
-            waitingFor: 'x'
-        };
-        _this.id = '';
-        _this.role = '';
-        return _this;
-    }
-
-    _createClass(Tictactoe, [{
-        key: 'initSocket',
-        value: function initSocket() {
-            var _this2 = this;
-
-            this.socket.on('dispatchRole', function (msg) {
-                _this2.id = msg.id;
-                _this2.role = msg.role;
-            });
-            this.socket.on('stepServer', function (msg) {
-                console.log(msg);
-                _this2._updateChess(msg);
-            });
-        }
-        // Pubsub订阅事件
-        // init(){
-        //     Pubsub.listen('xDone',() => {
-        //         this.judgeResult();
-        //     });
-        //     Pubsub.listen('judgeDone',() => {
-        //         if( !this.state.winner ){
-        //             if( this.state.waitingFor === 'o' ){
-        //                 // this.botAction();
-        //             }
-        //         }
-        //     });
-        //     Pubsub.listen('oDone',() => {
-        //         this.judgeResult();
-        //     })
-        // }
-        // 重新开始游戏
-
-    }, {
-        key: 'restartChess',
-        value: function restartChess() {
-            this.setState({
-                gridStatus: ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'],
-                winner: '',
-                waitingFor: 'x'
-            });
-        }
-        // 玩家x下棋后，回调
-
-    }, {
-        key: 'stepClient',
-        value: function stepClient(clickedKey) {
-            this.socket.emit('stepClient', {
-                player: this.role,
-                axis: clickedKey
-            });
-        }
-        // 更新玩家x的棋子
-
-    }, {
-        key: '_updateChess',
-        value: function _updateChess(step) {
-            var player = step.player,
-                axis = step.axis;
-
-            var _num = _Utils2.default.calcNum(axis);
-
-            this.state.gridStatus[_num - 1] = player;
-            this.setState({
-                gridStatus: this.state.gridStatus,
-                waitingFor: 'o'
-            }, function () {
-                _Pubsub2.default.trigger('xDone');
-            });
-        }
-        // AI 下棋
-
-    }, {
-        key: 'botAction',
-        value: function botAction() {
-            var _gridStatus = this.state.gridStatus;
-
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = _gridStatus[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var item = _step.value;
-
-                    if (item === 'blank') {
-                        var index = _gridStatus.indexOf(item);
-                        _gridStatus[index] = 'o';
-                        break;
-                    }
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-
-            this.setState({
-                gridStatus: _gridStatus,
-                waitingFor: 'x'
-            }, function () {
-                _Pubsub2.default.trigger('oDone');
-            });
-        }
-        /**
-         * @desc 判断胜负结果。
-         *          判断依据一（直线）：将x和o的棋子所在横纵坐标分别放入不同数组，当某个值在数组中出现3次时，表名连成了横线或竖线。则当前棋子方获胜
-         *          判断依据二（斜线）：
-         */
-
-    }, {
-        key: 'judgeResult',
-        value: function judgeResult() {
-            var xCoord = [],
-                oCoord = [];
-            var xNum = [],
-                oNum = [];
-
-
-            this.state.gridStatus.forEach(function (item, index) {
-                if (item === 'x') {
-                    xCoord.push(_Utils2.default.calcCoord(index + 1));
-                    xNum.push(index + 1);
-                }
-                if (item === 'o') {
-                    oCoord.push(_Utils2.default.calcCoord(index + 1));
-                    oNum.push(index + 1);
-                }
-            });
-            // 依据一
-            var xAixsOfX = [],
-                yAixsOfX = [],
-                xAixsOfO = [],
-                yAixsOfO = [];
-
-
-            xCoord.forEach(function (item, index) {
-                xAixsOfX.push(item[0]);
-                yAixsOfX.push(item[1]);
-            });
-            oCoord.forEach(function (item, index) {
-                xAixsOfO.push(item[0]);
-                yAixsOfO.push(item[1]);
-            });
-            if (_Utils2.default.arrCheck(xAixsOfX, 1) >= 3 || _Utils2.default.arrCheck(xAixsOfX, 2) >= 3 || _Utils2.default.arrCheck(xAixsOfX, 3) >= 3 || _Utils2.default.arrCheck(yAixsOfX, 1) >= 3 || _Utils2.default.arrCheck(yAixsOfX, 2) >= 3 || _Utils2.default.arrCheck(yAixsOfX, 3) >= 3) {
-                this.setState({
-                    winner: 'x'
-                }, function () {
-                    _Pubsub2.default.trigger('judgeDone');
-                });
-                return;
-            }
-            if (_Utils2.default.arrCheck(xAixsOfO, 1) >= 3 || _Utils2.default.arrCheck(xAixsOfO, 2) >= 3 || _Utils2.default.arrCheck(xAixsOfO, 3) >= 3 || _Utils2.default.arrCheck(yAixsOfO, 1) >= 3 || _Utils2.default.arrCheck(yAixsOfO, 2) >= 3 || _Utils2.default.arrCheck(yAixsOfO, 3) >= 3) {
-                this.setState({
-                    winner: 'o'
-                });
-                return;
-            }
-            // 依据二
-            if (xNum.indexOf(1) !== -1 && xNum.indexOf(5) !== -1 && xNum.indexOf(9) !== -1 || xNum.indexOf(3) !== -1 && xNum.indexOf(5) !== -1 && xNum.indexOf(7) !== -1) {
-                this.setState({
-                    winner: 'x'
-                }, function () {
-                    _Pubsub2.default.trigger('judgeDone');
-                });
-                return;
-            }
-            if (oNum.indexOf(1) !== -1 && oNum.indexOf(5) !== -1 && oNum.indexOf(9) !== -1 || oNum.indexOf(3) !== -1 && oNum.indexOf(5) !== -1 && oNum.indexOf(7) !== -1) {
-                this.setState({
-                    winner: 'o'
-                }, function () {
-                    _Pubsub2.default.trigger('judgeDone');
-                });
-                return;
-            }
-
-            if (this.state.gridStatus.indexOf('blank') === -1) {
-                // 平局
-                this.setState({
-                    winner: 'draw'
-                }, function () {
-                    _Pubsub2.default.trigger('judgeDone');
-                });
-            }
-            _Pubsub2.default.trigger('judgeDone');
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
-
-            var grids = this.state.gridStatus.map(function (item, index) {
-                return _react2.default.createElement(_Grid2.default, { key: index.toString(), gridNum: index.toString(), stepClient: _this3.stepClient, gridStatus: item,
-                    coordArr: _Utils2.default.calcCoord(index + 1), winner: _this3.state.winner });
-            });
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'tictactoe-container' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'game-container' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'grid-container' },
-                        grids
-                    ),
-                    _react2.default.createElement(_Chessbtns2.default, { winner: this.state.winner, restartChess: this.restartChess })
-                )
-            );
-        }
-    }]);
-
-    return Tictactoe;
-}(_react.Component);
-
-exports.default = Tictactoe;
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-/**
- * 根据给定的格子坐标，返回格子的编号。例如[2,3]是第6个格子
- * @param {Array} coordArr 
- */
-function calcNum(coordArr) {
-    if (!(coordArr instanceof Array)) {
-        console.warn('wrong param');
-        return coordArr;
-    }
-    var result = (coordArr[0] - 1) * 3 + coordArr[1];
-
-    return result;
-}
-
-/**
- * @desc 根据给定数值，计算其在“井”中的坐标。第一个格子坐标为[1,1]
- * @param {Number} num 
- */
-function calcCoord(num) {
-    if (typeof num === 'string') {
-        num = parseInt(num);
-    }
-    if (typeof num !== 'number' || isNaN(num)) {
-        console.warn('wrong param');
-    }
-    var xAixs = Math.ceil(num / 3);
-    var yAixs = num % 3 === 0 ? 3 : num % 3;
-
-    return [xAixs, yAixs];
-}
-
-/**
- * @desc 检测指定元素在数组中出现的次数
- * @param {Array} arr 
- * @param {Number} num 
- */
-function arrCheck(arr, num) {
-    if (!(arr instanceof Array)) {
-        console.warn('wrong param');
-        return false;
-    }
-    if (typeof num === 'string') {
-        num = parseInt(num);
-    }
-    if (typeof num !== 'number' || isNaN(num)) {
-        console.warn('wrong param');
-        return false;
-    }
-    var count = 0;
-
-    arr.forEach(function (item) {
-        if (item === num) {
-            count++;
-        }
-    });
-
-    return count;
-}
-
-exports.default = { calcNum: calcNum, calcCoord: calcCoord, arrCheck: arrCheck };
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(14);
+var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -11576,7 +10972,7 @@ var BoilingVerdict = function (_Component) {
 exports.default = BoilingVerdict;
 
 /***/ }),
-/* 91 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11588,7 +10984,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(14);
+var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -11659,6 +11055,559 @@ var Clock = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Clock;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Chessbtns = function (_Component) {
+    _inherits(Chessbtns, _Component);
+
+    function Chessbtns(props) {
+        _classCallCheck(this, Chessbtns);
+
+        var _this = _possibleConstructorReturn(this, (Chessbtns.__proto__ || Object.getPrototypeOf(Chessbtns)).call(this, props));
+
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
+    }
+
+    _createClass(Chessbtns, [{
+        key: "handleClick",
+        value: function handleClick() {
+            this.props.restartChess();
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "btn-container clearfloat" },
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.handleClick },
+                    "\u91CD\u65B0\u5F00\u59CB"
+                )
+            );
+        }
+    }]);
+
+    return Chessbtns;
+}(_react.Component);
+
+exports.default = Chessbtns;
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Gameinfo = function (_Component) {
+    _inherits(Gameinfo, _Component);
+
+    function Gameinfo(props) {
+        _classCallCheck(this, Gameinfo);
+
+        var _this = _possibleConstructorReturn(this, (Gameinfo.__proto__ || Object.getPrototypeOf(Gameinfo)).call(this, props));
+
+        _this.calcTurn = _this.calcTurn.bind(_this);
+        return _this;
+    }
+
+    _createClass(Gameinfo, [{
+        key: 'calcTurn',
+        value: function calcTurn() {
+            var isMyTurn = this.props.isMyTurn;
+            var winner = this.props.winner;
+            var role = this.props.role;
+            var otherRole = this.props._getOtherRole(role);
+            var noticeWord = '';
+
+            if (winner) {
+                if (winner === role) {
+                    noticeWord = '恭喜你获胜！';
+                } else if (winner === otherRole) {
+                    noticeWord = '很遗憾你输了';
+                } else if (winner === 'draw') {
+                    noticeWord = '平局';
+                }
+            } else {
+                if (isMyTurn) {
+                    noticeWord = '请落子..';
+                } else {
+                    noticeWord = '请等待对方落子..';
+                }
+            }
+            return noticeWord;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'game-info' },
+                this.calcTurn()
+            );
+        }
+    }]);
+
+    return Gameinfo;
+}(_react.Component);
+
+exports.default = Gameinfo;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Grid = function (_Component) {
+    _inherits(Grid, _Component);
+
+    function Grid(props) {
+        _classCallCheck(this, Grid);
+
+        var _this = _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).call(this, props));
+
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
+    }
+
+    _createClass(Grid, [{
+        key: 'handleClick',
+        value: function handleClick() {
+            if (this.props.winner) {
+                return;
+            }
+            if (!this.props.isMyTurn) {
+                return;
+            }
+            var gridStatus = this.props.gridStatus;
+
+            if (gridStatus === 'blank') {
+                this.props.stepClient(this.props.coordArr);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var chessMap = {
+                blank: '',
+                x: 'x',
+                o: 'o'
+            };
+            var chess = chessMap[this.props.gridStatus];
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'grid', onClick: this.handleClick },
+                chess
+            );
+        }
+    }]);
+
+    return Grid;
+}(_react.Component);
+
+exports.default = Grid;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(13);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Grid = __webpack_require__(89);
+
+var _Grid2 = _interopRequireDefault(_Grid);
+
+var _Utils = __webpack_require__(91);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _Chessbtns = __webpack_require__(87);
+
+var _Chessbtns2 = _interopRequireDefault(_Chessbtns);
+
+var _Gameinfo = __webpack_require__(88);
+
+var _Gameinfo2 = _interopRequireDefault(_Gameinfo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// const serverAddr = 'http://localhost:8082';
+var serverAddr = 'http://es6.reakingad.com:8082';
+
+var Tictactoe = function (_Component) {
+    _inherits(Tictactoe, _Component);
+
+    function Tictactoe(props) {
+        _classCallCheck(this, Tictactoe);
+
+        var _this = _possibleConstructorReturn(this, (Tictactoe.__proto__ || Object.getPrototypeOf(Tictactoe)).call(this, props));
+
+        _this.initSocket = _this.initSocket.bind(_this);
+        _this.stepClient = _this.stepClient.bind(_this);
+        _this.judgeResult = _this.judgeResult.bind(_this);
+        _this.restartChess = _this.restartChess.bind(_this);
+        _this.isMyTurn = _this.isMyTurn.bind(_this);
+        _this.state = {
+            gridStatus: ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'],
+            winner: '',
+            waitingFor: 'x',
+            role: _this.getRole()
+        };
+        _this.initSocket();
+        return _this;
+    }
+
+    _createClass(Tictactoe, [{
+        key: 'getRole',
+        value: function getRole() {
+            var queryString = window.location.search.split('=');
+            var role = queryString[1];
+
+            return role;
+        }
+    }, {
+        key: '_getOtherRole',
+        value: function _getOtherRole(role) {
+            if (typeof role !== 'string') {
+                return role;
+            }
+            if (role === 'x') {
+                return 'o';
+            }
+            if (role === 'o') {
+                return 'x';
+            }
+            return role;
+        }
+        // 初始化socket.io。监听服务器推送
+
+    }, {
+        key: 'initSocket',
+        value: function initSocket() {
+            var _this2 = this;
+
+            this.socket = io(serverAddr);
+            // 接收落子信息
+            this.socket.on('stepServer', function (msg) {
+                _this2._updateChess(msg);
+            });
+            // 接收重新开始的指令
+            this.socket.on('restartGameServer', function () {
+                _this2.setState({
+                    gridStatus: ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'],
+                    winner: '',
+                    waitingFor: 'x',
+                    role: _this2.getRole()
+                });
+            });
+        }
+        // 重新开始游戏
+
+    }, {
+        key: 'restartChess',
+        value: function restartChess() {
+            this.socket.emit('restartGameClient');
+        }
+        // 玩家落子后，将落子信息发送服务器
+
+    }, {
+        key: 'stepClient',
+        value: function stepClient(clickedKey) {
+            this.socket.emit('stepClient', {
+                player: this.state.role,
+                axis: clickedKey
+            });
+        }
+        // 更新棋盘中棋子的状态
+
+    }, {
+        key: '_updateChess',
+        value: function _updateChess(step) {
+            var player = step.player,
+                axis = step.axis;
+
+            var _num = _Utils2.default.calcNum(axis);
+
+            this.state.gridStatus[_num - 1] = player;
+            this.setState({
+                gridStatus: this.state.gridStatus,
+                waitingFor: this._getOtherRole(player)
+            }, this.judgeResult);
+        }
+        /**
+         * @desc 判断胜负结果。
+         *          判断依据一（直线）：将x和o的棋子所在横纵坐标分别放入不同数组，当某个值在数组中出现3次时，表名连成了横线或竖线。则当前棋子方获胜
+         *          判断依据二（斜线）：穷举
+         */
+
+    }, {
+        key: 'judgeResult',
+        value: function judgeResult() {
+            var xCoord = [],
+                oCoord = [];
+            var xNum = [],
+                oNum = [];
+
+
+            this.state.gridStatus.forEach(function (item, index) {
+                if (item === 'x') {
+                    xCoord.push(_Utils2.default.calcCoord(index + 1));
+                    xNum.push(index + 1);
+                }
+                if (item === 'o') {
+                    oCoord.push(_Utils2.default.calcCoord(index + 1));
+                    oNum.push(index + 1);
+                }
+            });
+            // 依据一
+            var xAixsOfX = [],
+                yAixsOfX = [],
+                xAixsOfO = [],
+                yAixsOfO = [];
+
+
+            xCoord.forEach(function (item, index) {
+                xAixsOfX.push(item[0]);
+                yAixsOfX.push(item[1]);
+            });
+            oCoord.forEach(function (item, index) {
+                xAixsOfO.push(item[0]);
+                yAixsOfO.push(item[1]);
+            });
+            if (_Utils2.default.arrCheck(xAixsOfX, 1) >= 3 || _Utils2.default.arrCheck(xAixsOfX, 2) >= 3 || _Utils2.default.arrCheck(xAixsOfX, 3) >= 3 || _Utils2.default.arrCheck(yAixsOfX, 1) >= 3 || _Utils2.default.arrCheck(yAixsOfX, 2) >= 3 || _Utils2.default.arrCheck(yAixsOfX, 3) >= 3) {
+                this.setState({
+                    winner: 'x'
+                });
+                return;
+            }
+            if (_Utils2.default.arrCheck(xAixsOfO, 1) >= 3 || _Utils2.default.arrCheck(xAixsOfO, 2) >= 3 || _Utils2.default.arrCheck(xAixsOfO, 3) >= 3 || _Utils2.default.arrCheck(yAixsOfO, 1) >= 3 || _Utils2.default.arrCheck(yAixsOfO, 2) >= 3 || _Utils2.default.arrCheck(yAixsOfO, 3) >= 3) {
+                this.setState({
+                    winner: 'o'
+                });
+                return;
+            }
+            // 依据二
+            if (xNum.indexOf(1) !== -1 && xNum.indexOf(5) !== -1 && xNum.indexOf(9) !== -1 || xNum.indexOf(3) !== -1 && xNum.indexOf(5) !== -1 && xNum.indexOf(7) !== -1) {
+                this.setState({
+                    winner: 'x'
+                });
+                return;
+            }
+            if (oNum.indexOf(1) !== -1 && oNum.indexOf(5) !== -1 && oNum.indexOf(9) !== -1 || oNum.indexOf(3) !== -1 && oNum.indexOf(5) !== -1 && oNum.indexOf(7) !== -1) {
+                this.setState({
+                    winner: 'o'
+                });
+                return;
+            }
+
+            if (this.state.gridStatus.indexOf('blank') === -1) {
+                // 平局
+                this.setState({
+                    winner: 'draw'
+                });
+            }
+        }
+        // 计算是否轮到当前页面的角色落子
+
+    }, {
+        key: 'isMyTurn',
+        value: function isMyTurn() {
+            var isMyTurn = false;
+            var role = this.state.role;
+            var waitingFor = this.state.waitingFor;
+
+            if (role === waitingFor) {
+                isMyTurn = true;
+            }
+            return isMyTurn;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var isMyTurn = this.isMyTurn();
+            var grids = this.state.gridStatus.map(function (item, index) {
+                return _react2.default.createElement(_Grid2.default, { key: index.toString(), gridNum: index.toString(), stepClient: _this3.stepClient, gridStatus: item,
+                    coordArr: _Utils2.default.calcCoord(index + 1), winner: _this3.state.winner, isMyTurn: isMyTurn });
+            });
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'tictactoe-container' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'game-container' },
+                    _react2.default.createElement(_Gameinfo2.default, { isMyTurn: isMyTurn, role: this.state.role, winner: this.state.winner,
+                        _getOtherRole: this._getOtherRole }),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'grid-container' },
+                        grids
+                    ),
+                    _react2.default.createElement(_Chessbtns2.default, { restartChess: this.restartChess, _getOtherRole: this._getOtherRole })
+                )
+            );
+        }
+    }]);
+
+    return Tictactoe;
+}(_react.Component);
+
+exports.default = Tictactoe;
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * 根据给定的格子坐标，返回格子的编号。例如[2,3]是第6个格子
+ * @param {Array} coordArr 
+ */
+function calcNum(coordArr) {
+    if (!(coordArr instanceof Array)) {
+        console.warn('wrong param');
+        return coordArr;
+    }
+    var result = (coordArr[0] - 1) * 3 + coordArr[1];
+
+    return result;
+}
+
+/**
+ * @desc 根据给定数值，计算其在“井”中的坐标。第一个格子坐标为[1,1]
+ * @param {Number} num 
+ */
+function calcCoord(num) {
+    if (typeof num === 'string') {
+        num = parseInt(num);
+    }
+    if (typeof num !== 'number' || isNaN(num)) {
+        console.warn('wrong param');
+    }
+    var xAixs = Math.ceil(num / 3);
+    var yAixs = num % 3 === 0 ? 3 : num % 3;
+
+    return [xAixs, yAixs];
+}
+
+/**
+ * @desc 检测指定元素在数组中出现的次数
+ * @param {Array} arr 
+ * @param {Number} num 
+ */
+function arrCheck(arr, num) {
+    if (!(arr instanceof Array)) {
+        console.warn('wrong param');
+        return false;
+    }
+    if (typeof num === 'string') {
+        num = parseInt(num);
+    }
+    if (typeof num !== 'number' || isNaN(num)) {
+        console.warn('wrong param');
+        return false;
+    }
+    var count = 0;
+
+    arr.forEach(function (item) {
+        if (item === num) {
+            count++;
+        }
+    });
+
+    return count;
+}
+
+exports.default = { calcNum: calcNum, calcCoord: calcCoord, arrCheck: arrCheck };
 
 /***/ }),
 /* 92 */
@@ -14157,7 +14106,7 @@ module.exports = FallbackCompositionState;
 
 
 
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -15627,7 +15576,7 @@ var AutoFocusUtils = __webpack_require__(110);
 var CSSPropertyOperations = __webpack_require__(112);
 var DOMLazyTree = __webpack_require__(18);
 var DOMNamespaces = __webpack_require__(35);
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var DOMPropertyOperations = __webpack_require__(58);
 var EventPluginHub = __webpack_require__(22);
 var EventPluginRegistry = __webpack_require__(26);
@@ -17083,7 +17032,7 @@ module.exports = ReactDOMInput;
 
 
 
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var ReactComponentTreeHook = __webpack_require__(7);
 
 var warning = __webpack_require__(2);
@@ -18055,7 +18004,7 @@ module.exports = {
 
 
 
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var EventPluginRegistry = __webpack_require__(26);
 var ReactComponentTreeHook = __webpack_require__(7);
 
@@ -18964,7 +18913,7 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 
-var DOMProperty = __webpack_require__(13);
+var DOMProperty = __webpack_require__(14);
 var EventPluginHub = __webpack_require__(22);
 var EventPluginUtils = __webpack_require__(36);
 var ReactComponentEnvironment = __webpack_require__(39);

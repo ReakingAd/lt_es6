@@ -9,6 +9,9 @@ class Grid extends Component{
         if( this.props.winner ){
             return;
         }
+        if( !this.props.isMyTurn ){
+            return;
+        }
         let gridStatus = this.props.gridStatus;
 
         if( gridStatus === 'blank' ){

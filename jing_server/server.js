@@ -17,37 +17,16 @@ function handler (req, res) {
   });
 }
 
-let roles = ['x','o','observer'];
 io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
-    });
-    socket.on('xDone',msg => {
-        console.log( msg )
-    });
-    // ==============
-    
-    // 接收x的step
+    // 接收client的落子信息
     socket.on('stepClient',msg => {
         socket.emit('stepServer',msg);// 回馈给step的发起者
         socket.broadcast.emit('stepServer',msg);// 推送给除step发起者外的所有客户端
     })
-    // dispathRole(io,socket);
-    let roles = ['x','o','observer'];
-    io.clients((err,clients) => {
-        console.log( clients )
-        let socketID = socket.id;
-        let num = clients.indexOf( socketID );
-        num = num > 2 ? 2 : num;
-        let roleInfo = {
-            id:socketID,
-            role:roles[ num ]
-        }
-        socket.emit('dispatchRole',roleInfo)
+    // 接收client重启游戏的请求
+    socket.on('restartGameClient',() => {
+        socket.emit('restartGameServer');
+        socket.broadcast.emit('restartGameServer');
     })
     
 });
-
-function dispathRole(io,socket){
-}

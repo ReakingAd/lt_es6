@@ -48,3 +48,6 @@
 .btn-container button:active{
     background-color:#ccc
 }
+.game-info{
+    padding-bottom:20px;
+}

@@ -2,72 +2,73 @@ import React,{ Component } from 'react';
 import Grid from './Grid.jsx';
 import Utils from './Utils.js';
 import Chessbtns from './Chessbtns.jsx';
-import Pubsub from './Pubsub.js';
-// import Socketio from 'socket.io';
+import Gameinfo from './Gameinfo.jsx';
+// const serverAddr = 'http://localhost:8082';
+const serverAddr = 'http://es6.reakingad.com:8082';
 
 class Tictactoe extends Component{
     constructor(props){
         super(props);
-        // socketio begin
-        this.socket = io('http://localhost:8082');
-        this.initSocket = this.initSocket.bind(this);
-        this.initSocket();
-        // socketio end
-        // this.init();
-        this.stepClient = this.stepClient.bind(this);
-        this.botAction        = this.botAction.bind(this);
-        this.judgeResult      = this.judgeResult.bind(this);
-        this.restartChess     = this.restartChess.bind(this);
+        this.initSocket   = this.initSocket.bind(this);
+        this.stepClient   = this.stepClient.bind(this);
+        this.judgeResult  = this.judgeResult.bind(this);
+        this.restartChess = this.restartChess.bind(this);
+        this.isMyTurn     = this.isMyTurn.bind(this);
         this.state = {
             gridStatus:['blank','blank','blank','blank','blank','blank','blank','blank','blank'],
             winner:'',
-            waitingFor:'x'
+            waitingFor:'x',
+            role:this.getRole()
         }
-        this.id = '';
-        this.role = '';
+        this.initSocket();
     }
+    getRole(){
+        let queryString = window.location.search.split('=');
+        let role        = queryString[ 1 ];
+
+        return role;
+    }
+    _getOtherRole(role){
+        if( typeof role !== 'string' ){
+            return role;
+        }
+        if( role === 'x' ){
+            return 'o'
+        }
+        if( role === 'o' ){
+            return 'x';
+        }
+        return role;
+    }
+    // 初始化socket.io。监听服务器推送
     initSocket(){
-        this.socket.on('dispatchRole',msg => {
-            this.id = msg.id;
-            this.role = msg.role;
-        })
+        this.socket = io(serverAddr);
+        // 接收落子信息
         this.socket.on('stepServer',msg => {
-            console.log( msg )
             this._updateChess(msg)
+        });
+        // 接收重新开始的指令
+        this.socket.on('restartGameServer',() => {
+            this.setState({
+                gridStatus:['blank','blank','blank','blank','blank','blank','blank','blank','blank'],
+                winner:'',
+                waitingFor:'x',
+                role:this.getRole()
+            })
         })
     }
-    // Pubsub订阅事件
-    // init(){
-    //     Pubsub.listen('xDone',() => {
-    //         this.judgeResult();
-    //     });
-    //     Pubsub.listen('judgeDone',() => {
-    //         if( !this.state.winner ){
-    //             if( this.state.waitingFor === 'o' ){
-    //                 // this.botAction();
-    //             }
-    //         }
-    //     });
-    //     Pubsub.listen('oDone',() => {
-    //         this.judgeResult();
-    //     })
-    // }
     // 重新开始游戏
     restartChess(){
-        this.setState({
-            gridStatus:['blank','blank','blank','blank','blank','blank','blank','blank','blank'],
-            winner:'',
-            waitingFor:'x'
-        })
+        this.socket.emit('restartGameClient');
     }
-    // 玩家x下棋后，回调
+    // 玩家落子后，将落子信息发送服务器
     stepClient(clickedKey){
         this.socket.emit('stepClient',{
-            player:this.role,
+            player:this.state.role,
             axis:clickedKey
         })
     }
-    // 更新玩家x的棋子
+    // 更新棋盘中棋子的状态
     _updateChess(step){
         let {player,axis} = step;
         let _num = Utils.calcNum(axis);
@@ -75,33 +76,13 @@ class Tictactoe extends Component{
         this.state.gridStatus[ _num - 1 ] = player;
         this.setState({
             gridStatus:this.state.gridStatus,
-            waitingFor:'o'
-        },() => {
-            Pubsub.trigger('xDone');
-        })
-    }
-    // AI 下棋
-    botAction(){
-        let _gridStatus = this.state.gridStatus;
-
-        for( let item of _gridStatus ){
-            if( item === 'blank' ){
-                let index = _gridStatus.indexOf( item );
-                _gridStatus[ index ] = 'o';
-                break;
-            }
-        }
-        this.setState({
-            gridStatus:_gridStatus,
-            waitingFor:'x'
-        },() => {
-            Pubsub.trigger('oDone');
-        })
+            waitingFor:this._getOtherRole(player)
+        },this.judgeResult)
     }
     /**
      * @desc 判断胜负结果。
      *          判断依据一（直线）：将x和o的棋子所在横纵坐标分别放入不同数组，当某个值在数组中出现3次时，表名连成了横线或竖线。则当前棋子方获胜
-     *          判断依据二（斜线）：
+     *          判断依据二（斜线）：穷举
      */
     judgeResult(){
         let [ xCoord,oCoord ] = [ [],[] ];
@@ -132,8 +113,6 @@ class Tictactoe extends Component{
             Utils.arrCheck(yAixsOfX,1) >= 3 || Utils.arrCheck(yAixsOfX,2) >= 3 || Utils.arrCheck(yAixsOfX,3) >= 3 ){
                 this.setState({
                     winner:'x'
-                },() => {
-                    Pubsub.trigger('judgeDone');
                 });
                 return;
             }
@@ -149,8 +128,6 @@ class Tictactoe extends Component{
             || xNum.indexOf(3) !== -1 && xNum.indexOf(5) !== -1 && xNum.indexOf(7) !== -1 ){
             this.setState({
                 winner:'x'
-            },() => {
-                Pubsub.trigger('judgeDone');
             });
             return;
         }
@@ -158,8 +135,6 @@ class Tictactoe extends Component{
             || oNum.indexOf(3) !== -1 && oNum.indexOf(5) !== -1 && oNum.indexOf(7) !== -1 ){
             this.setState({
                 winner:'o'
-            },() => {
-                Pubsub.trigger('judgeDone');
             });
             return;
         }
@@ -168,25 +143,36 @@ class Tictactoe extends Component{
             // 平局
             this.setState({
                 winner:'draw'
-            },() => {
-                Pubsub.trigger('judgeDone');
             })
         }
-        Pubsub.trigger('judgeDone');
+    }
+    // 计算是否轮到当前页面的角色落子
+    isMyTurn(){
+        let isMyTurn   = false;
+        let role       = this.state.role;
+        let waitingFor = this.state.waitingFor;
+
+        if( role === waitingFor ){
+            isMyTurn = true;
+        }
+        return isMyTurn;
     }
     render(){
+        let isMyTurn = this.isMyTurn();
         let grids = this.state.gridStatus.map( (item,index) => {
             return <Grid key={index.toString()} gridNum={index.toString()} stepClient={this.stepClient} gridStatus={item}
-                    coordArr={Utils.calcCoord(index + 1)} winner={this.state.winner} />
+                        coordArr={Utils.calcCoord(index + 1)} winner={this.state.winner} isMyTurn={isMyTurn} />
         });
 
         return (
             <div className="tictactoe-container">
                 <div className="game-container">
+                    <Gameinfo isMyTurn={isMyTurn} role={this.state.role} winner={this.state.winner}
+                        _getOtherRole={this._getOtherRole} />
                     <div className="grid-container">
                         {grids}
                     </div>
-                    <Chessbtns winner={this.state.winner} restartChess={this.restartChess}/>
+                    <Chessbtns restartChess={this.restartChess}  _getOtherRole={this._getOtherRole} />
                 </div>
             </div>
         )
