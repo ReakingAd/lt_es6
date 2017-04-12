@@ -6,10 +6,10 @@ class Gameinfo extends Component{
         this.calcTurn = this.calcTurn.bind(this);
     }
     calcTurn(){
-        let isMyTurn = this.props.isMyTurn;
-        let winner = this.props.winner;
-        let role = this.props.role;
-        let otherRole = this.props._getOtherRole( role );
+        let isMyTurn   = this.props.isMyTurn;
+        let winner     = this.props.winner;
+        let role       = this.props.role;
+        let otherRole  = this.props.getOtherRole( role );
         let noticeWord = '';
 
         if( winner ){

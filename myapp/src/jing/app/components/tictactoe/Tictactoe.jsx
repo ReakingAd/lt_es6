@@ -28,7 +28,7 @@ class Tictactoe extends Component{
 
         return role;
     }
-    _getOtherRole(role){
+    getOtherRole(role){
         if( typeof role !== 'string' ){
             return role;
         }
@@ -45,7 +45,7 @@ class Tictactoe extends Component{
         this.socket = io(serverAddr);
         // 接收落子信息
         this.socket.on('stepServer',msg => {
-            this._updateChess(msg)
+            this.updateChess(msg)
         });
         // 接收重新开始的指令
         this.socket.on('restartGameServer',() => {
@@ -69,14 +69,14 @@ class Tictactoe extends Component{
         })
     }
     // 更新棋盘中棋子的状态
-    _updateChess(step){
+    updateChess(step){
         let {player,axis} = step;
         let _num = Utils.calcNum(axis);
 
         this.state.gridStatus[ _num - 1 ] = player;
         this.setState({
             gridStatus:this.state.gridStatus,
-            waitingFor:this._getOtherRole(player)
+            waitingFor:this.getOtherRole(player)
         },this.judgeResult)
     }
     /**
@@ -86,7 +86,7 @@ class Tictactoe extends Component{
      */
     judgeResult(){
         let [ xCoord,oCoord ] = [ [],[] ];
-        let [ xNum,oNum ] = [ [],[] ];
+        let [ xNum,oNum ]     = [ [],[] ];
 
         this.state.gridStatus.forEach( (item,index) => {
             if( item === 'x' ){
@@ -168,11 +168,11 @@ class Tictactoe extends Component{
             <div className="tictactoe-container">
                 <div className="game-container">
                     <Gameinfo isMyTurn={isMyTurn} role={this.state.role} winner={this.state.winner}
-                        _getOtherRole={this._getOtherRole} />
+                        getOtherRole={this.getOtherRole} />
                     <div className="grid-container">
                         {grids}
                     </div>
-                    <Chessbtns restartChess={this.restartChess}  _getOtherRole={this._getOtherRole} />
+                    <Chessbtns restartChess={this.restartChess}  getOtherRole={this.getOtherRole} />
                 </div>
             </div>
         )

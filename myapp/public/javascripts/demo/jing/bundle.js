@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "427aa6b9105d79e8c79e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1901eb43842ec18b4bd1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -11161,7 +11161,7 @@ var Gameinfo = function (_Component) {
             var isMyTurn = this.props.isMyTurn;
             var winner = this.props.winner;
             var role = this.props.role;
-            var otherRole = this.props._getOtherRole(role);
+            var otherRole = this.props.getOtherRole(role);
             var noticeWord = '';
 
             if (winner) {
@@ -11348,8 +11348,8 @@ var Tictactoe = function (_Component) {
             return role;
         }
     }, {
-        key: '_getOtherRole',
-        value: function _getOtherRole(role) {
+        key: 'getOtherRole',
+        value: function getOtherRole(role) {
             if (typeof role !== 'string') {
                 return role;
             }
@@ -11371,7 +11371,7 @@ var Tictactoe = function (_Component) {
             this.socket = io(serverAddr);
             // 接收落子信息
             this.socket.on('stepServer', function (msg) {
-                _this2._updateChess(msg);
+                _this2.updateChess(msg);
             });
             // 接收重新开始的指令
             this.socket.on('restartGameServer', function () {
@@ -11403,8 +11403,8 @@ var Tictactoe = function (_Component) {
         // 更新棋盘中棋子的状态
 
     }, {
-        key: '_updateChess',
-        value: function _updateChess(step) {
+        key: 'updateChess',
+        value: function updateChess(step) {
             var player = step.player,
                 axis = step.axis;
 
@@ -11413,7 +11413,7 @@ var Tictactoe = function (_Component) {
             this.state.gridStatus[_num - 1] = player;
             this.setState({
                 gridStatus: this.state.gridStatus,
-                waitingFor: this._getOtherRole(player)
+                waitingFor: this.getOtherRole(player)
             }, this.judgeResult);
         }
         /**
@@ -11521,13 +11521,13 @@ var Tictactoe = function (_Component) {
                     'div',
                     { className: 'game-container' },
                     _react2.default.createElement(_Gameinfo2.default, { isMyTurn: isMyTurn, role: this.state.role, winner: this.state.winner,
-                        _getOtherRole: this._getOtherRole }),
+                        getOtherRole: this.getOtherRole }),
                     _react2.default.createElement(
                         'div',
                         { className: 'grid-container' },
                         grids
                     ),
-                    _react2.default.createElement(_Chessbtns2.default, { restartChess: this.restartChess, _getOtherRole: this._getOtherRole })
+                    _react2.default.createElement(_Chessbtns2.default, { restartChess: this.restartChess, getOtherRole: this.getOtherRole })
                 )
             );
         }
